@@ -1,0 +1,57 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2015-05-09 16:02+0100\n"
+"PO-Revision-Date: 2015-05-09 16:02+0100\n"
+"Last-Translator: Etienne <etienne-github@outlook.fr>\n"
+"Language-Team: Etiennef <etienne-github@outlook.fr>\n"
+"Language: en_GB\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.7.6\n"
+"X-Poedit-Basepath: ../.\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __:1,2t\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: front/preference.form.php:32
+msgid "Please activate the plugin"
+msgstr "Please activate the plugin"
+
+#: inc/preference.class.php:53
+msgid "Default configuration for SmartRedirect"
+msgstr "Default configuration for SmartRedirect"
+
+#: inc/preference.class.php:55
+msgid "Personnal configuration for SmartRedirect"
+msgstr "Personnal configuration for SmartRedirect"
+
+#: inc/preference.class.php:59
+msgid "Activate smart redirections"
+msgstr "Activate smart redirections"
+
+#: inc/preference.class.php:63
+msgid "Requester"
+msgstr "Requester"
+
+#: inc/preference.class.php:70
+msgid "Observer"
+msgstr "Observer"
+
+#: inc/preference.class.php:77
+msgid "Assigned to"
+msgstr "Assigned to"
+
+#: inc/preference.class.php:84
+msgid "Requester <strong>and</strong> Assigned to (unresolved ticket)"
+msgstr "Requester <strong>and</strong> Assigned to (unresolved ticket)"
+
+#: inc/preference.class.php:92
+msgid "Requester <strong>and</strong> Assigned to (resolved ticket)"
+msgstr "Requester <strong>and</strong> Assigned to (resolved ticket)"
+
+#: inc/preference.class.php:100
+msgid "No role on this ticket"
+msgstr "No role on this ticket"

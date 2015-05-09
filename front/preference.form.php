@@ -24,11 +24,10 @@ if ($plugin->isActivated("smartredirect")) {
 		$config->showConfigForm();
 		Html::footer();
 	}
-
 } else {
 	Html::header('configuration', '', "config", "plugins");
 	echo "<div class='center'><br><br>".
 			"<img src=\"".$CFG_GLPI["root_doc"]."/pics/warning.png\" alt='warning'><br><br>";
-	echo "<b>Merci d'activer le plugin</b></div>";
+	echo "<b>".__('Please activate the plugin', 'smartredirect')."</b></div>";
 	Html::footer();
 }
