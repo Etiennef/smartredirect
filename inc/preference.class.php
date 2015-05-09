@@ -7,7 +7,6 @@ class PluginSmartredirectPreference  extends CommonDBTM {
 	function getTabNameForItem(CommonGLPI $item, $withtemplate=0)
 	{
 		if ($item->getType() == 'Preference' or $item->getType() == 'User') {
-
 			return "SmartRedirect";
 		}
 		return '';
@@ -51,52 +50,55 @@ class PluginSmartredirectPreference  extends CommonDBTM {
 		echo "<table class='tab_cadre_fixe'>";
 		
 		if($id=='0') {
-			echo "<tr><th colspan='2' class='center b'> Configuration par défaut du plugin SmartRedirect</th></tr>";
+			echo "<tr><th colspan='2' class='center b'>".__('Default configuration for SmartRedirect', 'smartredirect')."</th></tr>";
 		} else {
-			echo "<tr><th colspan='2' class='center b'> Configuration personelle du plugin SmartRedirect</th></tr>";
+			echo "<tr><th colspan='2' class='center b'>".__('Personnal configuration for SmartRedirect', 'smartredirect')."</th></tr>";
 		}
 		
 		echo "<tr class='tab_bg_2'>";
-		echo "<td>Activer les redirections : </td><td>";
+		echo "<td>".__('Activate smart redirections', 'smartredirect')." : </td><td>";
 		Dropdown::showYesNo("is_activated", $values["is_activated"]);
 		echo "</td></tr>";
 		
-		echo "<tr class='tab_bg_2'><td>Demandeur : </td><td>";
+		echo "<tr class='tab_bg_2'><td>".__('Requester', 'smartredirect')." : </td><td>";
 		Profile::dropdown(array(
 				'name'		=> 'requester',
 				'value'     => $values['requester'],
 		));
 		echo "</td></tr>";
 		
-		echo "<tr class='tab_bg_2'><td>Observateur : </td><td>";
+		echo "<tr class='tab_bg_2'><td>".__('Observer', 'smartredirect')." : </td><td>";
 		Profile::dropdown(array(
 				'name'		=> 'observer',
 				'value'     => $values['observer'],
 		));
 		echo "</td></tr>";
 		
-		echo "<tr class='tab_bg_2'><td>Attribué à : </td><td>";
+		echo "<tr class='tab_bg_2'><td>".__('Assigned to', 'smartredirect')." : </td><td>";
 		Profile::dropdown(array(
 				'name'		=> 'assigned',
 				'value'     => $values['assigned'],
 		));
 		echo "</td></tr>";
 
-		echo "<tr class='tab_bg_2'><td>Demandeur <strong>et</strong> attribué à (ticket non résolu) : </td><td>";
+		echo "<tr class='tab_bg_2'><td>".__('Requester <strong>and</strong> Assigned to (unresolved ticket)', 'smartredirect').
+				" : </td><td>";
 		Profile::dropdown(array(
 				'name'		=> 'requester_and_assigned_solved',
 				'value'     => $values['requester_and_assigned_solved'],
 		));
 		echo "</td></tr>";
 
-		echo "<tr class='tab_bg_2'><td>Demandeur <strong>et</strong> attribué à (ticket résolu) : </td><td>";
+		echo "<tr class='tab_bg_2'><td>".__('Requester <strong>and</strong> Assigned to (resolved ticket)', 'smartredirect').
+				" : </td><td>";
 		Profile::dropdown(array(
 				'name'		=> 'requester_and_assigned_others',
 				'value'     => $values['requester_and_assigned_others'],
 		));
 		echo "</td></tr>";
 		
-		echo "<tr class='tab_bg_2'><td>Aucun rôle sur le ticket : </td><td>";
+		echo "<tr class='tab_bg_2'><td>".__('No role on this ticket', 'smartredirect').
+				" : </td><td>";
 		Profile::dropdown(array(
 				'name'		=> 'norole',
 				'value'     => $values['norole'],
@@ -111,7 +113,7 @@ class PluginSmartredirectPreference  extends CommonDBTM {
 			echo "<tr class='tab_bg_1'>";
 			echo "<td class='center' colspan='2'>";
 			echo "<input type='hidden' name='id' value=$id>";
-			echo "<input type='submit' name='update_pref' value='Mettre à jour' class='submit'>";
+			echo "<input type='submit' name='update_pref' value='"._sx('button', 'Save')."' class='submit'>";
 			echo "</td></tr>";
 		}
 		echo "</table>";
