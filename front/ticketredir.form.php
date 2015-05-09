@@ -3,8 +3,6 @@
 include("../../../inc/includes.php");
 require_once("../inc/ticketredir.class.php");
 
-// http://localhost/index.php?redirect=plugin_smartredirect_2015043001
-
 if(!isset($_GET['id'])) {
 	if($_SESSION["glpiactiveprofile"]["interface"] == 'helpdesk') {
 		Html::redirect($CFG_GLPI["root_doc"]."/front/helpdesk.public.php");
@@ -41,6 +39,13 @@ if($pref->getField('is_activated')) {
 }
 
 // renvoi vers le ticket lui-même
-//Html::redirect($CFG_GLPI["root_doc"]."/index.php?redirect=ticket_".$ticket_id."_".$_GET['forcetab']);
-Html::redirect($CFG_GLPI["root_doc"]."/front/ticket.form.php?id=".$ticket_id."&forcetab=".$_GET['forcetab']);
+if(!isset($_GET['forcetab'])) {
+	Html::redirect($CFG_GLPI["root_doc"]."/front/ticket.form.php?id=".$ticket_id);
+} else if ($_GET['forcetab'] == 'DocumentItem$1') { // Gestion du cas particulier du document (qui ne passe pas tel quel car contient un _)
+	Html::redirect($CFG_GLPI["root_doc"]."/front/ticket.form.php?id=".$ticket_id."&forcetab=Document_Item$1");
+} else {
+	Html::redirect($CFG_GLPI["root_doc"]."/front/ticket.form.php?id=".$ticket_id."&forcetab=".$_GET['forcetab']);
+}
+
+
 

@@ -28,7 +28,7 @@ class PluginSmartredirectTicketredir {
 		} elseif($roles['requester']) {
 			return 'requester';
 		} elseif($roles['observer']) {
-			return 'assignobservered';
+			return 'observer';
 		} else {
 			return 'norole';
 		}

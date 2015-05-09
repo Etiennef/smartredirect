@@ -61,3 +61,11 @@ function plugin_smartredirect_uninstall()
 	
 	return true;
 }
+
+/**
+ * Hook vers la définition de nouvelle données dans les notifications
+ * @param NotificationTargetTicket $target
+ */
+function plugin_smartredirect_get_datas(NotificationTargetTicket $target) {
+	PluginSmartredirectNotificationData::getDatasForTemplate($target);
+}
