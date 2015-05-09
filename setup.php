@@ -56,18 +56,17 @@ function plugin_init_smartredirect()
 
 	$PLUGIN_HOOKS['csrf_compliant']['smartredirect'] = true;
 	
-	Plugin::registerClass('PluginSmartredirectPreference',
-			array('addtabon' => array('User', 'Preference')));
+	Plugin::registerClass('PluginSmartredirectPreference', array('addtabon' => array('User', 'Preference')));
 	
 	if (Session::haveRight("config", "w")) {
 		$PLUGIN_HOOKS['config_page']['smartredirect'] = 'front/preference.form.php';
 	}
 	
-	$PLUGIN_HOOKS['redirect_page']['smartredirect'] = 'front/ticketredir.form.php';
-	//Plugin::registerClass('PluginRedirectionConfig');
-	//Plugin::registerClass('PluginRedirectionTicket', array('addtabon' => array('Ticket')));
+	// déclare la redirection spécifique au plugin
+	$PLUGIN_HOOKS['redirect_page']['smartredirect']['ticket'] = 'front/ticketredir.form.php';
 	
-
+	// Ajoute des données pour les templates de notifications
+	$PLUGIN_HOOKS['item_get_datas']['smartredirect'] = array('NotificationTargetTicket' => 'plugin_smartredirect_get_datas');
 }
 
 
