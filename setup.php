@@ -22,7 +22,7 @@ function plugin_smartredirect_check_prerequisites()
 {
 	if (GLPI_VERSION >= 0.84 and GLPI_VERSION <= 0.85)
 		return true;
-	echo "Never tested for anything else than 0.84";
+	echo "Never tested for anything else than 0.84.8";
 	return false;
 }
 
@@ -59,7 +59,7 @@ function plugin_init_smartredirect()
 	Plugin::registerClass('PluginSmartredirectPreference', array('addtabon' => array('User', 'Preference')));
 	
 	if (Session::haveRight("config", "w")) {
-		$PLUGIN_HOOKS['config_page']['smartredirect'] = 'front/preference.form.php';
+		$PLUGIN_HOOKS['config_page']['smartredirect'] = 'front/config.form.php';
 	}
 	
 	// déclare la redirection spécifique au plugin
