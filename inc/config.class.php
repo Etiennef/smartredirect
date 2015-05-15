@@ -3,43 +3,17 @@ if (!defined('GLPI_ROOT')) {
 	die("Sorry. You can't access directly to this file");
 }
 
-class PluginSmartredirectPreference  extends CommonDBTM {
-	
-	function getTabNameForItem(CommonGLPI $item, $withtemplate=0)
-	{
-		if ($item->getType() == 'Preference' or 
-				($item->getType() == 'User' and Session::haveRight('user', 'r'))) {
-			return "SmartRedirect";
-		}
-		return '';
-	}
-	
-	static function displayTabContentForItem(CommonGLPI $item, $tabnum=1, $withtemplate=0)
-	{
-		$pref = new self();
-		if ($item->getType() == 'Preference') {
-			$pref->showForm(Session::getLoginUserID());  
-		} elseif($item->getType() == 'User' and Session::haveRight('user', 'r')) {
-			$pref->showForm($item->getField('id'));  
-		}
-		return true;
-	}
-	
+class PluginSmartredirectConfig  extends CommonDBTM {
 	/**
-	 * Réccupère les paramtères qui s'appliquent à l'utilisateur, en tenant compte soit de ses réglages perso, soit de la config par défaut.
-	 * @param int $id id de l'utilisateur dont on souhaite lire les réglages
-	 * @return bool vrai ssi l'utilisateur a des paramètres perso
+	 * Lit les valeurs des paramètres appliqués par défaut
+	 * @return array paramètres par défaut
 	 */
-	function getAppliedValues($id) {
-		if($this->getFromDB($id)) {
-			return true;
-			$this->haspref = true;
-		} else {
-			$this->haspref = false;
-			$this->fields = PluginSmartredirectConfig::getConfigValues();
-			$this->fields['id'] = $id;
-			return false;
-		}
+	static function getConfigValues() {
+		$config = new self();
+		$config->getFromDB(0);
+		$values = $config->fields;
+		unset($values['id']);
+		return $values;
 	}
 	
 	/**
@@ -48,59 +22,26 @@ class PluginSmartredirectPreference  extends CommonDBTM {
 	 * @param type $options
 	 * @return boolean
 	 */
-	function showForm($id, $options=array()) {
-		$target = $this->getFormURL();
+	static function showForm() {
+		$target = self::getFormURL();
 		if (isset($options['target'])) {
 			$target = $options['target'];
 		}
 		
 		// si les préférences ne dont pas définies, je charge les préférences par défaut (sauf l'id)
-		$pref = new self();
-		$haspref = $pref->getAppliedValues($id);
-		$values = $pref->fields;
+		$config = new self();
+		$config->getFromDB(0);
+		$values = $config->fields;
 		
-		/* on a le droit de faire des modifications si c'est nos préférences, ou si on a le droit d'écrire les préférences des utilisateurs */
-		$canwrite = ($id == Session::getLoginUserID() or Session::haveRight("user","w"));
+		$canwrite = Session::haveRight("config","w");
 		
 		echo "<form action='".$target."' method='post'>";
 		
 		echo "<table class='tab_cadre_fixe'>";
-		echo "<tr><th colspan='2' class='center b'>".__('Personnal configuration for SmartRedirect', 'smartredirect')."</th></tr>";
-		
-		// Gestion du bouton créer/effacer les préférences (pas affiché si config!) :
-		if($haspref) {
-			echo "<tr class='tab_bg_2'>";
-			echo "<td colspan=2><strong>".__('Personalized preferences are used for SmartRedirect.', 'smartredirect')." : </strong></td>";
-			echo "</tr>";
-			
-			if ($canwrite) {
-				// N'affiche le bouton pour supprimer les préférences que si l'utilisateur a le droit de l'utiliser
-				echo "<tr class='tab_bg_2'>";
-				echo "<td>".__('Do you want to delete personalized parameters?', 'smartredirect')." : </td>";
-				echo "<td>";
-				echo "<input type='submit' name='delete_pref' value='".__('Delete personnal parameters', 'smartredirect')."' class='submit'>";
-				echo "</td>";
-				echo "</tr>";
-			}
-		} else  {
-			echo "<tr class='tab_bg_2'>";
-			echo "<td colspan=2><strong>".__('No personalized preferences for SmartRedirect. Rules defined by the administrator are applied', 'smartredirect')." : </strong></td>";
-			echo "</tr>";
-			
-			if ($canwrite) {
-				// N'affiche le bouton pour créer les préférences que si l'utilisateur a le droit de l'utiliser
-				echo "<tr class='tab_bg_2'>";
-				echo "<td>".__('Do you want to create personalized parameters?', 'smartredirect')." : </td>";
-				echo "<td>";
-				echo "<input type='submit' name='create_pref' value='".__('Create personnal parameters', 'smartredirect')."' class='submit'>";
-				echo "</td>";
-				echo "</tr>";
-			}
-		}
-		
+		echo "<tr><th colspan='2' class='center b'>".__('Default configuration for SmartRedirect', 'smartredirect')."</th></tr>";
 		
 		// Gestion de l'affichage des réglages. Read-only si réglages par défauts, ou si pas les droits pour les modifier
-		if($haspref and $canwrite) {
+		if($canwrite) {
 			// Affichage modifiable
 			echo "<tr class='tab_bg_2'>";
 			echo "<td>".__('Activate smart redirections', 'smartredirect')." : </td><td>";
@@ -154,7 +95,7 @@ class PluginSmartredirectPreference  extends CommonDBTM {
 				
 			echo "<tr class='tab_bg_1'>";
 			echo "<td class='center' colspan='2'>";
-			echo "<input type='submit' name='update_pref' value='"._sx('button', 'Save')."' class='submit'>";
+			echo "<input type='submit' name='update_config' value='"._sx('button', 'Save')."' class='submit'>";
 			echo "</td></tr>";
 		} else {
 			// Affichage en read-only		
@@ -195,7 +136,7 @@ class PluginSmartredirectPreference  extends CommonDBTM {
 		}
 		
 		echo "</table>";
-		echo "<input type='hidden' name='id' value=$id>";
+		echo "<input type='hidden' name='id' value='0'>";
 		Html::closeForm();
 	}
 	

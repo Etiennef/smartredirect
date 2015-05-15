@@ -8,9 +8,9 @@ function plugin_version_smartredirect()
 {
 	return array('name'      => "SmartRedirect",
 			'version'        => '0.0.1',
-			'author'         => 'Etienne',
+			'author'         => 'Etiennef',
 			'license'        => 'GPLv2+',
-			'homepage'       => 'http://lmgtfy.com/?q=Etienne',
+			'homepage'       => 'https://github.com/Etiennef',
 			'minGlpiVersion' => '0.84');
 }
 
@@ -22,7 +22,7 @@ function plugin_smartredirect_check_prerequisites()
 {
 	if (GLPI_VERSION >= 0.84 and GLPI_VERSION <= 0.85)
 		return true;
-	echo "Never tested for anything else than 0.84";
+	echo "Never tested for anything else than 0.84.8";
 	return false;
 }
 
@@ -56,11 +56,14 @@ function plugin_init_smartredirect()
 
 	$PLUGIN_HOOKS['csrf_compliant']['smartredirect'] = true;
 	
-	Plugin::registerClass('PluginSmartredirectPreference', array('addtabon' => array('User', 'Preference')));
 	
+	// Ajoute l'onglet de configuration par défaut
 	if (Session::haveRight("config", "w")) {
-		$PLUGIN_HOOKS['config_page']['smartredirect'] = 'front/preference.form.php';
+		$PLUGIN_HOOKS['config_page']['smartredirect'] = 'front/config.form.php';
 	}
+	
+	// Ajoute l'onglet dans les préférences et dans les réglages des utilisateurs
+	Plugin::registerClass('PluginSmartredirectPreference', array('addtabon' => array('User', 'Preference')));
 	
 	// déclare la redirection spécifique au plugin
 	$PLUGIN_HOOKS['redirect_page']['smartredirect']['ticket'] = 'front/ticketredir.form.php';
