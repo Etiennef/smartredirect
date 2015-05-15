@@ -15,11 +15,7 @@ $user_id = Session::getLoginUserID();
 $ticket_id = $_GET['id'];
 
 $pref = new PluginSmartredirectPreference();
-
-// Charge les préférences de l'utilisateur, ou s'il n'en n'a pas celles par défaut
-if(!$pref->getFromDB($user_id)) {
-	$pref->getFromDB('0');
-}
+$pref->getAppliedValues($user_id);
 
 // calcule et redirige, puis si nécessaire élargit le champ des entités
 if($pref->getField('is_activated')) {
