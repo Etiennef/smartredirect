@@ -39,33 +39,6 @@ class PluginSmartredirectPreference  extends CommonDBTM {
 		$pref = new self();
 		if ($pref->GetfromDB($id)) {
 			$values = $pref->fields;
-			$haspref = true;
-		} else {
-			$defaultpref = new self();
-			$defaultpref->getFromDB(0);
-			$values = $defaultpref->fields;
-			$values['id'] = $id;
-			$haspref = false;
-		}
-		
-		echo "<form action='".$target."' method='post'>";
-		echo "<table class='tab_cadre_fixe'>";
-		echo "<tr><th colspan='2' class='center b'>".__('Personnal configuration for SmartRedirect', 'smartredirect')."</th></tr>";
-		
-		
-		
-		if($haspref) {
-			
-			
-		}
-		
-		
-		
-		
-		
-		$pref = new self();
-		if ($pref->GetfromDB($id)) {
-			$values = $pref->fields;
 		} else {			
 			$defaultpref = new self();
 			$defaultpref->getFromDB(0);
@@ -73,6 +46,14 @@ class PluginSmartredirectPreference  extends CommonDBTM {
 			$values['id'] = $id;
 		}
 		
+		echo "<form action='".$target."' method='post'>";
+		echo "<table class='tab_cadre_fixe'>";
+		
+		if($id=='0') {
+			echo "<tr><th colspan='2' class='center b'>".__('Default configuration for SmartRedirect', 'smartredirect')."</th></tr>";
+		} else {
+			echo "<tr><th colspan='2' class='center b'>".__('Personnal configuration for SmartRedirect', 'smartredirect')."</th></tr>";
+		}
 		
 		echo "<tr class='tab_bg_2'>";
 		echo "<td>".__('Activate smart redirections', 'smartredirect')." : </td><td>";
