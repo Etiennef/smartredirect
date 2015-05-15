@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-05-09 15:58+0100\n"
-"PO-Revision-Date: 2015-05-09 16:00+0100\n"
+"POT-Creation-Date: 2015-05-15 11:16+0100\n"
+"PO-Revision-Date: 2015-05-15 11:19+0100\n"
 "Last-Translator: Etienne <etienne-github@outlook.fr>\n"
 "Language-Team: Etienne <etienne-glpi@outlook.fr>\n"
 "Language: fr_FR\n"
@@ -16,42 +16,82 @@ msgstr ""
 "X-Poedit-KeywordsList: __:1,2t\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: front/preference.form.php:32
+#: front/config.form.php:23
 msgid "Please activate the plugin"
 msgstr "Merci d'activer le plugin"
 
-#: inc/preference.class.php:53
+#: front/preference.form.php:25
+msgid ""
+"No personnalized settings detected, could not update them, please try again"
+msgstr "Aucun réglage personnalisé n'a été détecte, merci de rééssayer"
+
+#: inc/config.class.php:41
 msgid "Default configuration for SmartRedirect"
 msgstr "Configuration par défaut pour SmartRedirect"
 
-#: inc/preference.class.php:55
-msgid "Personnal configuration for SmartRedirect"
-msgstr "Configuration personnalisée pour SmartRedirect"
-
-#: inc/preference.class.php:59
+#: inc/config.class.php:47 inc/config.class.php:103
+#: inc/preference.class.php:106 inc/preference.class.php:162
 msgid "Activate smart redirections"
 msgstr "Activer les redirections intelligentes"
 
-#: inc/preference.class.php:63
+#: inc/config.class.php:51 inc/config.class.php:108
+#: inc/preference.class.php:110 inc/preference.class.php:167
 msgid "Requester"
 msgstr "Demandeur"
 
-#: inc/preference.class.php:70
+#: inc/config.class.php:58 inc/config.class.php:113
+#: inc/preference.class.php:117 inc/preference.class.php:172
 msgid "Observer"
 msgstr "Observateur"
 
-#: inc/preference.class.php:77
+#: inc/config.class.php:65 inc/config.class.php:118
+#: inc/preference.class.php:124 inc/preference.class.php:177
 msgid "Assigned to"
 msgstr "Attribué à"
 
-#: inc/preference.class.php:84
+#: inc/config.class.php:72 inc/config.class.php:123
+#: inc/preference.class.php:131 inc/preference.class.php:182
 msgid "Requester <strong>and</strong> Assigned to (unresolved ticket)"
 msgstr "Demandeur <strong>et</strong> attribué à (ticket non résolu)"
 
-#: inc/preference.class.php:92
+#: inc/config.class.php:80 inc/config.class.php:128
+#: inc/preference.class.php:139 inc/preference.class.php:187
 msgid "Requester <strong>and</strong> Assigned to (resolved ticket)"
 msgstr "Demandeur <strong>et</strong> attribué à (ticket résolu)"
 
-#: inc/preference.class.php:100
+#: inc/config.class.php:88 inc/config.class.php:133
+#: inc/preference.class.php:147 inc/preference.class.php:192
 msgid "No role on this ticket"
 msgstr "Pas de rôle sur ce ticket"
+
+#: inc/preference.class.php:68
+msgid "Personnal configuration for SmartRedirect"
+msgstr "Configuration personnalisée pour SmartRedirect"
+
+#: inc/preference.class.php:73
+msgid "Personalized preferences are used for SmartRedirect."
+msgstr "Des réglages personnalisés sont utilisés pour SmartRedirect"
+
+#: inc/preference.class.php:79
+msgid "Do you want to delete personalized parameters?"
+msgstr "Voulez-vous supprimer les réglages personnalisés ?"
+
+#: inc/preference.class.php:81
+msgid "Delete personnal parameters"
+msgstr "Effacer"
+
+#: inc/preference.class.php:87
+msgid ""
+"No personalized preferences for SmartRedirect. Rules defined by the "
+"administrator are applied"
+msgstr ""
+"Aucun réglage personnalisé n'a été défini. Les règles définies par "
+"l'administrateur sont appliquées."
+
+#: inc/preference.class.php:93
+msgid "Do you want to create personalized parameters?"
+msgstr "Voulez-vous créer des réglages personnalisés?"
+
+#: inc/preference.class.php:95
+msgid "Create personnal parameters"
+msgstr "Créer"

@@ -1,20 +1,19 @@
 <?php
 include ("../../../inc/includes.php");
-require_once("../inc/preference.class.php");
+require_once("../inc/config.class.php");
 
 Session::checkRight('config', 'r');
 
 $plugin = new Plugin();
 if ($plugin->isActivated("smartredirect")) {
-	if (isset($_POST['update'])) {
+	if (isset($_POST['update_config']) && $_POST['id']==0) {
 		Session::checkRight('config', 'w');
 		$config = new PluginSmartredirectConfig();
-		$config->getFromDB(0);
 		$config->update($_POST);
 		Html::back();
 	} else {
 		Html::header('SmartRedirect', $_SERVER["PHP_SELF"], "config", "plugins");
-		PluginSmartredirectConfig::$config->showForm();
+		PluginSmartredirectConfig::showForm();
 		Html::footer();
 	}
 } else {
