@@ -10,7 +10,7 @@ function plugin_version_smartredirect()
 			'version'        => '0.0.1',
 			'author'         => 'Etiennef',
 			'license'        => 'GPLv2+',
-			'homepage'       => 'https://github.com/Etiennef',
+			'homepage'       => 'https://github.com/Etiennef/smartredirect',
 			'minGlpiVersion' => '0.84');
 }
 
@@ -67,6 +67,7 @@ function plugin_init_smartredirect()
 	
 	// déclare la redirection spécifique au plugin
 	$PLUGIN_HOOKS['redirect_page']['smartredirect']['ticket'] = 'front/ticketredir.form.php';
+	$PLUGIN_HOOKS['redirect_page']['smartredirect']['create'] = 'front/createredir.form.php';
 	
 	// Ajoute des données pour les templates de notifications
 	$PLUGIN_HOOKS['item_get_datas']['smartredirect'] = array('NotificationTargetTicket' => 'plugin_smartredirect_get_datas');

@@ -1,0 +1,44 @@
+﻿Les exemples sont données avec mon environnement de test.
+A adapter en fonction de l'état de votre base bien sûr
+
+*********************************
+Redirection pour accéder à des tickets existants : 
+
+syntaxe : plugin_smartredirect_a_b
+où
+	a = id du ticket
+	b = valeur de l'onglet (suit les valeurs classiques de GLPI, sauf pour Document_Item$1, remplacé par DocumentItem$1)
+		par exemple : 
+			Ticket$2 pour la solution
+			DocumentItem$1 pour les documents joints
+			TicketValidation$1 pour l'onglet des validations
+			etc...
+
+Pour l'utilisateur Etienne :
+http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043002_2 =>Utilisateur (8)
+http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043003_2 =>Utilisateur (8)
+http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043004_2 =>Technicien > Utilisateur (6>8)
+http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043005_2 =>Technicien > Utilisateur (6>8)
+http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043006_2 =>Technicien (6)
+http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043007_2 =>Technicien (6)
+http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043008_2 =>Observateur (2)
+
+
+*********************************
+Redirection pour créer un ticket : 
+
+syntaxe : plugin_smartredirect_create_a-b-c-d
+où
+	a = id du profil
+	b = id de l'entité
+	c = 1 pour incident, 2 pour demande
+	d = id de la catégorie
+
+Profil Utilisateur (interface simplifiée), processus 2.1, demande, catégorie racine réccursive
+http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_8-5-2-9
+
+Profil technicien (interface avancée), processus 1.2, incident, catégorie 1.2
+http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_6-4-1-2
+
+
+
