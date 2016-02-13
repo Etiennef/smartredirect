@@ -14,21 +14,19 @@ if(!isset($_GET['id'])) {
 $user_id = Session::getLoginUserID();
 $ticket_id = $_GET['id'];
 
-$pref = new PluginSmartredirectPreference();
-$pref->getAppliedValues($user_id);
+$config = PluginSmartredirectConfig::getConfigValues();
 
 // calcule et redirige, puis si nécessaire élargit le champ des entités
-if($pref->getField('is_activated')) {
+if($config['is_activated']) {
 	$roles = PluginSmartredirectTicketredir::getRoles($user_id, $ticket_id);
-	
-	$profile_id = $pref->getField($roles);
+	$profile_id = $config[$roles];
 	
 	if($profile_id != $_SESSION['glpiactiveprofile']['id']) {
 		Session::changeProfile($profile_id);
 	}
+	
 	$ticket = new Ticket();
 	$ticket->getFromDB($ticket_id);
-	
 	if (!Session::haveAccessToEntity($ticket->getEntityID())) {
 		Session::changeActiveEntities("all");
 	}

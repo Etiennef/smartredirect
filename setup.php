@@ -20,10 +20,18 @@ function plugin_version_smartredirect()
  */
 function plugin_smartredirect_check_prerequisites()
 {
-	if (GLPI_VERSION >= 0.84 and GLPI_VERSION <= 0.85)
-		return true;
-	echo "Never tested for anything else than 0.84.8";
-	return false;
+	if(version_compare(GLPI_VERSION, '0.84.8', 'lt') || version_compare(GLPI_VERSION, '0.85', 'ge')) {
+		echo __("Plugin has been tested only for GLPI 0.84.8", 'smartredirect');
+		return false;
+	}
+	
+	//Vérifie la présence de ConfigManager
+	if(!(new Plugin())->isActivated('configmanager')) {
+		echo __("Plugin requires ConfigManager 1.0", 'smartredirect');
+		return false;
+	}
+	
+	return true;
 }
 
 
@@ -57,13 +65,12 @@ function plugin_init_smartredirect()
 	$PLUGIN_HOOKS['csrf_compliant']['smartredirect'] = true;
 	
 	
-	// Ajoute l'onglet de configuration par défaut
-	if (Session::haveRight("config", "w")) {
-		$PLUGIN_HOOKS['config_page']['smartredirect'] = 'front/config.form.php';
-	}
-	
-	// Ajoute l'onglet dans les préférences et dans les réglages des utilisateurs
-	Plugin::registerClass('PluginSmartredirectPreference', array('addtabon' => array('User', 'Preference')));
+	Plugin::registerClass('PluginSmartredirectConfig', array('addtabon' => array(
+			'User',
+			'Preference',
+			'Config'
+		)));
+	$PLUGIN_HOOKS['config_page']['smartredirect'] = 'front/config.form.php';
 	
 	// déclare la redirection spécifique au plugin
 	$PLUGIN_HOOKS['redirect_page']['smartredirect']['ticket'] = 'front/ticketredir.form.php';
