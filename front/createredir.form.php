@@ -1,29 +1,45 @@
 <?php
 
 include("../../../inc/includes.php");
-require_once("../inc/ticketredir.class.php");
 
+$isValid = false;
 
-if(isset($_GET['id']) && 
-		preg_match('/^([\d]+)-([\d]+)-([\d]+)-([\d]+)$/', $_GET['id'], $res)) {
+if(isset($_GET['id'])) {
+	if(preg_match('/^(p([\d]+))?(e([\d]+))?(t([\d]+)(c([\d]+))?)?$/', $_GET['id'], $res)) {
+		$isValid = true;
+		
+		$profile = isset($res[2]) && $res[2]!=''?$res[2]:$_SESSION['glpiactiveprofile']['id'];
+		$entity = isset($res[2]) && $res[4]!=''?$res[4]:$_SESSION['glpiactive_entity'];
+		
+		if(isset($res[6]) && $res[6]!='') {
+			$type = $res[6];
+		}
+		if(isset($res[8]) && $res[8]!='') {
+			$category = $res[8];
+		}
+	}
 	
-	$profile = $res[1];
-	$entity = $res[2];
-	$type = $res[3];
-	$category = $res[4];
-	
+}
+
+if($isValid) {
 	if($profile != $_SESSION['glpiactiveprofile']['id']) {
 		Session::changeProfile($profile);
 	}
-	if($entity != $_SESSION['glpiactive_entity']['id']) {
+	if($entity != $_SESSION['glpiactive_entity']) {
 		Session::changeActiveEntities($entity);
 	}
 	
-	$_SESSION['saveInput']['Ticket'] = array(
-			'itilcategories_id'   => $category,
-			'urgency'             => 1,
-			'entities_id'         => $_SESSION['glpiactive_entity'],
-			'type'                => $type);
+	$input = array();
+	
+	if(isset($type)) {
+		$input['type'] = $type;
+	}
+	
+	if(isset($category)) {
+		$input['itilcategories_id'] = $category;
+	}
+	
+	$_SESSION['saveInput']['Ticket'] = $input;
 }
 
 if($_SESSION["glpiactiveprofile"]["interface"] == 'helpdesk') {
