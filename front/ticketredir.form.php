@@ -3,7 +3,8 @@
 include("../../../inc/includes.php");
 require_once("../inc/ticketredir.class.php");
 
-if(!isset($_GET['id'])) {
+$ticket = new Ticket();
+if(!isset($_GET['id']) || !$ticket->getFromDB($_GET['id'])) {
 	if($_SESSION["glpiactiveprofile"]["interface"] == 'helpdesk') {
 		Html::redirect($CFG_GLPI["root_doc"]."/front/helpdesk.public.php");
 	} else {
@@ -11,35 +12,65 @@ if(!isset($_GET['id'])) {
 	}
 }
 
-$user_id = Session::getLoginUserID();
-$ticket_id = $_GET['id'];
+
+var_dump($_GET);
+
+$forcetab = PluginSmartredirectTicketredir::getGLPIForcetabForLinkType(isset($_GET['forcetab']) ? $_GET['forcetab'] : '');
+$linktype = $forcetab==='' ? '' : $_GET['forcetab'];
+
 
 $config = PluginSmartredirectConfig::getConfigValues();
+$rules = PluginSmartredirectRule::getRulesValues();
+
+
 
 // calcule et redirige, puis si nécessaire élargit le champ des entités
 if($config['is_activated']) {
-	$roles = PluginSmartredirectTicketredir::getRoles($user_id, $ticket_id);
-	$profile_id = $config[$roles];
+	$user_id = Session::getLoginUserID();
+	$roles = PluginSmartredirectTicketredir::getRoles($ticket);
 	
-	if($profile_id != $_SESSION['glpiactiveprofile']['id']) {
-		Session::changeProfile($profile_id);
-	}
 	
-	$ticket = new Ticket();
-	$ticket->getFromDB($ticket_id);
-	if (!Session::haveAccessToEntity($ticket->getEntityID())) {
-		Session::changeActiveEntities("all");
+	
+	foreach($rules as $rule) {
+		var_dump($rule);
+		
+		var_dump($linktype);
+		//Vérifie le type de lien
+		if(!in_array($linktype, $rule['linktypes']))
+			continue;
+		
+		var_dump($ticket->getEntityID());
+		//Vérifie le processus
+		if(!in_array($ticket->getEntityID(), $rule['entities']))
+			continue;
+		
+		var_dump($roles);
+		//Vérifie le rôle
+		if(!count(array_intersect($roles, $rule['roles'])))
+			continue;
+		
+		var_dump($ticket->fields['status']);
+		//Vérifie le statut
+		if(!in_array($ticket->fields['status'], $rule['status']))
+			continue;
+		
+		//Si on arrive ici, c'est que toutes les conditions sont vérifiées, donc on applique la règle
+		$profile_id = $rule['profile'];
+		var_dump($profile_id);
+		if($profile_id != $_SESSION['glpiactiveprofile']['id']) {
+			Session::changeProfile($profile_id);
+		}
+		if (!Session::haveAccessToEntity($ticket->getEntityID())) {
+			Session::changeActiveEntities("all");
+		}
+		
+		//Seule la première règle s'applique
+		break;
 	}
 }
 
 // renvoi vers le ticket lui-même
-if(!isset($_GET['forcetab'])) {
-	Html::redirect($CFG_GLPI["root_doc"]."/front/ticket.form.php?id=".$ticket_id);
-} else if ($_GET['forcetab'] == 'DocumentItem$1') { // Gestion du cas particulier du document (qui ne passe pas tel quel car contient un _)
-	Html::redirect($CFG_GLPI["root_doc"]."/front/ticket.form.php?id=".$ticket_id."&forcetab=Document_Item$1");
-} else {
-	Html::redirect($CFG_GLPI["root_doc"]."/front/ticket.form.php?id=".$ticket_id."&forcetab=".$_GET['forcetab']);
-}
+Html::redirect($CFG_GLPI["root_doc"]."/front/ticket.form.php?id=".$ticket->getId()."&forcetab=".$_GET['forcetab']);
 
 
 

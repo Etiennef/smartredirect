@@ -74,6 +74,12 @@ function plugin_init_smartredirect()
 		$PLUGIN_HOOKS['config_page']['smartredirect'] = "../../front/config.form.php?forcetab=" . urlencode('PluginSmartredirectConfig$0');
 	}
 	
+	Plugin::registerClass('PluginSmartredirectRule', array('addtabon' => array(
+		'User',
+		'Preference',
+		'Config'
+	)));
+	
 	
 	// déclare la redirection spécifique au plugin
 	$PLUGIN_HOOKS['redirect_page']['smartredirect']['ticket'] = 'front/ticketredir.form.php';

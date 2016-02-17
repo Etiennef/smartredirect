@@ -15,13 +15,20 @@ où
 			etc...
 
 Pour l'utilisateur Etienne :
-http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043002_2 =>Utilisateur (8)
-http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043003_2 =>Utilisateur (8)
-http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043004_2 =>Technicien > Utilisateur (6>8)
-http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043005_2 =>Technicien > Utilisateur (6>8)
-http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043006_2 =>Technicien (6)
-http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043007_2 =>Technicien (6)
-http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043008_2 =>Observateur (2)
+
+Test sur les rôles
+	Demandeur => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043002
+	Observateur => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2016021701
+	Attribué à => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043007
+	Valideur => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_3
+	No role => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043008
+
+Test sur les rôles doublés:
+	D&R => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043004
+	D&O => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043003
+	O&R => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043006
+
+
 
 
 *********************************

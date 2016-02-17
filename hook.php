@@ -7,6 +7,9 @@
 function plugin_smartredirect_install() {
 	include 'inc/config.class.php';
 	PluginSmartredirectConfig::install();
+
+	include 'inc/rule.class.php';
+	PluginSmartredirectRule::install();
 	
 	return true;
 }
@@ -19,6 +22,9 @@ function plugin_smartredirect_install() {
 function plugin_smartredirect_uninstall() {
 	include 'inc/config.class.php';
 	PluginSmartredirectConfig::uninstall();
+
+	include 'inc/rule.class.php';
+	PluginSmartredirectRule::uninstall();
 	
 	return true;
 }
