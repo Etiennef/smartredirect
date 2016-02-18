@@ -1,7 +1,5 @@
 <?php
 
-include_once 'ticketredir.class.php';
-
 class PluginSmartredirectRule extends PluginConfigmanagerRule {
 	protected static $inherit_order = array(self::TYPE_USER, self::TYPE_GLOBAL);
 	
@@ -20,7 +18,7 @@ class PluginSmartredirectRule extends PluginConfigmanagerRule {
 				'type' => 'dropdown',
 				'text' => __('Link type', 'smartredirect'),
 				'tooltip' => __('Rule is applied only for selected links', 'smartredirect'),
-				'values' => PluginSmartredirectTicketredir::getLinkTypeDescriptions(),
+				'values' => PluginSmartredirectTicket::getLinkTypeDescriptions(),
 				'dbtype' => 'varchar(250)',
 				'default' => '[]',
 				'options' => array(
@@ -46,7 +44,7 @@ class PluginSmartredirectRule extends PluginConfigmanagerRule {
 				'type' => 'dropdown',
 				'text' => __('Role on ticket', 'smartredirect'),
 				'tooltip' => __('Rule is applied only when you play one of these roles on the ticket', 'smartredirect'),
-				'values' => PluginSmartredirectTicketredir::getRoleDescriptions(),
+				'values' => PluginSmartredirectTicket::getRoleDescriptions(),
 				'dbtype' => 'varchar(250)',
 				'default' => '[]',
 				'options' => array(

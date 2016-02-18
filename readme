@@ -17,18 +17,51 @@ où
 Pour l'utilisateur Etienne :
 
 Test sur les rôles
-	Demandeur => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043002
-	Observateur => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2016021701
-	Attribué à => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043007
-	Valideur => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_3
-	No role => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043008
+	Demandeur => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2015043002_ticket$$$
+	Observateur => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2016021701_ticket$$$
+	Attribué à => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2015043007_ticket$$$
+	Valideur => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_3_ticket$$$
+	No role => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2015043008_ticket$$$
 
 Test sur les rôles doublés:
-	D&R => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043004
-	D&O => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043003
-	O&R => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2015043006
+	D&R => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2015043004_ticket$$$
+	D&O => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2015043003_ticket$$$
+	O&R => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2015043006_ticket$$$
 
+Test sur le statut :
+	Nouveau => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2016021801_ticket$$$
+	En cours attribué => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2016021802_ticket$$$
+	En cours planifié => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2016021803_ticket$$$
+	En attente => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2016021804_ticket$$$
+	Résolu => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2016021805_ticket$$$
+	Clos => http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2016021806_ticket$$$
 
+Test sur entités :
+	Sur Root : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_3_ticket$$$
+	Sur entité 3 : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2016021801_ticket$$$
+
+Test sur le lien :
+	Vers suivis : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_3_ticket$$$TicketFollowup$1
+	Vers Tâches : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_3_ticket$$$TicketTask$1
+	Vers solution : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_3_ticket$$$Ticket$2
+	Vers validation : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_3_ticket$$$TicketValidation$1
+	Vers document : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_3_ticket$$$Document$$Item$1
+	Vers stats : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_3_ticket$$$Ticket$4
+	Vers satisfaction : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_3_ticket$$$Ticket$3
+
+*********************************
+Réécriture des liens simple en lien smart-redirect
+
+Il faut remplacer tous les `Html::redirect($CFG_GLPI["root_doc"] . "/index.php");` dans les fonctions en check de Session.class.php par `PluginSmartredirectGobject::redirectSmartly();`
+Au lieu de rediriger vers la page d'authentification ce qui fait perdre l'information, ça construira un lien 'redirect', qui emmène vers la bonne page après redirection. Prend en compte les éventuels redirection intelligentes supplémentaires (Ticket à ce jour)
+
+Ticket nouveau norole : http://glpi0848.localhost/front/ticket.form.php?id=2016021801&forcetab=Document_Item$1
+Le même en smart : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2016021801_ticket$$$Document$$Item$1
+comupter : http://glpi0848.localhost/front/computer.form.php?id=1&forcetab=Document_Item$1
+
+Ticket nouveau norole : http://glpi0848.localhost/front/ticket.form.php?id=2016021801&forcetab=Ticket$2
+Le même en smart : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_ticket_2016021801_DocumentItem$1
+Computer : http://glpi0848.localhost/front/computer.form.php?id=1&forcetab=Ticket$1
 
 
 *********************************

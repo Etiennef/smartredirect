@@ -64,6 +64,8 @@ function plugin_init_smartredirect()
 
 	$PLUGIN_HOOKS['csrf_compliant']['smartredirect'] = true;
 	
+	Plugin::registerClass('PluginSmartredirectTicket');
+	Plugin::registerClass('PluginSmartredirectGobject');
 	
 	Plugin::registerClass('PluginSmartredirectConfig', array('addtabon' => array(
 			'User',
@@ -82,7 +84,7 @@ function plugin_init_smartredirect()
 	
 	
 	// déclare la redirection spécifique au plugin
-	$PLUGIN_HOOKS['redirect_page']['smartredirect']['ticket'] = 'front/ticketredir.form.php';
+	$PLUGIN_HOOKS['redirect_page']['smartredirect']['gobject'] = 'front/gobjectredir.form.php';
 	$PLUGIN_HOOKS['redirect_page']['smartredirect']['create'] = 'front/createredir.form.php';
 	
 	// Ajoute des données pour les templates de notifications

@@ -12,12 +12,12 @@ class PluginSmartredirectNotificationData {
 		//var_dump($target->obj);
 		
 		if(get_class($target->obj) == 'Ticket' and ($id = $target->obj->getField('id'))) {
-			$baseStr = $CFG_GLPI["url_base"]."/index.php". "?redirect=plugin_smartredirect_ticket_".$id;
+			$baseStr = $CFG_GLPI["url_base"]."/index.php?redirect=plugin_smartredirect_gobject_${id}_ticket$$$";
 			
 			$target->datas['##ticket.smartredirect.url##'] = urldecode($baseStr);
-			$target->datas['##ticket.smartredirect.urlapprove##'] = urldecode($baseStr."_Ticket$2");
-			$target->datas['##ticket.smartredirect.urlvalidation##'] = urldecode($baseStr."_TicketValidation$1");
-			$target->datas['##ticket.smartredirect.urldocument##'] = urldecode($baseStr."_DocumentItem$1");
+			$target->datas['##ticket.smartredirect.urlapprove##'] = urldecode($baseStr.'_Ticket$2');
+			$target->datas['##ticket.smartredirect.urlvalidation##'] = urldecode($baseStr.'_TicketValidation$1');
+			$target->datas['##ticket.smartredirect.urldocument##'] = urldecode($baseStr.'_Document$$Item$1');
 		}
 		
 		
