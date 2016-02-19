@@ -23,8 +23,7 @@ class PluginSmartredirectRule extends PluginConfigmanagerRule {
 				'default' => '[]',
 				'options' => array(
 					'multiple'=>true,
-					'size'=>5,
-			 		'mark_unmark_all' => true
+					'size'=>5
 				)
 			),
 			'entities' => array(
@@ -36,8 +35,7 @@ class PluginSmartredirectRule extends PluginConfigmanagerRule {
 				'default' => '[]',
 				'options' => array(
 					'multiple'=>true,
-					'size'=>5,
-			 		'mark_unmark_all' => true
+					'size'=>5
 				)
 			),
 			'roles' => array(
@@ -49,8 +47,7 @@ class PluginSmartredirectRule extends PluginConfigmanagerRule {
 				'default' => '[]',
 				'options' => array(
 					'multiple'=>true,
-					'size'=>5,
-			 		'mark_unmark_all' => true
+					'size'=>5
 				)
 			),
 			'status' => array(
@@ -62,8 +59,7 @@ class PluginSmartredirectRule extends PluginConfigmanagerRule {
 				'default' => '[]',
 				'options' => array(
 					'multiple'=>true,
-					'size'=>5,
-			 		'mark_unmark_all' => true
+					'size'=>5
 				)
 			),
 			'readonly1' => array(

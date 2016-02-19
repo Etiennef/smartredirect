@@ -67,21 +67,18 @@ function plugin_init_smartredirect()
 	Plugin::registerClass('PluginSmartredirectTicket');
 	Plugin::registerClass('PluginSmartredirectGobject');
 	
-	Plugin::registerClass('PluginSmartredirectConfig', array('addtabon' => array(
+	Plugin::registerClass('PluginSmartredirectConfig');
+	Plugin::registerClass('PluginSmartredirectRule');
+	
+	Plugin::registerClass('PluginSmartredirectTabmerger', array('addtabon' => array(
 			'User',
 			'Preference',
 			'Config'
 		)));
+	
 	if((new Plugin())->isActivated('smartredirect')) {
-		$PLUGIN_HOOKS['config_page']['smartredirect'] = "../../front/config.form.php?forcetab=" . urlencode('PluginSmartredirectConfig$0');
+		$PLUGIN_HOOKS['config_page']['smartredirect'] = '../../front/config.form.php?forcetab=PluginSmartredirectTabmerger%241';
 	}
-	
-	Plugin::registerClass('PluginSmartredirectRule', array('addtabon' => array(
-		'User',
-		'Preference',
-		'Config'
-	)));
-	
 	
 	// déclare la redirection spécifique au plugin
 	$PLUGIN_HOOKS['redirect_page']['smartredirect']['gobject'] = 'front/gobjectredir.form.php';

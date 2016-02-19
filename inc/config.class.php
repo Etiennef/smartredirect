@@ -13,7 +13,7 @@ class PluginSmartredirectConfig extends PluginConfigmanagerConfig {
 		return array(
 			'is_activated' => array(
 				'type' => 'dropdown',
-				'text' => __('Activate smart redirections', 'smartredirect'),
+				'text' => __('Activate smart redirections for tickets', 'smartredirect'),
 				'values' => array(
 					'1' => Dropdown::getYesNo('1'),
 					'0' => Dropdown::getYesNo('0')
