@@ -34,18 +34,18 @@ Par exemple pour un ticket :
 Le fait de passer par la redirection intelligent qui change le profil à la volée ne nécessite pas de changer le lien. ça sera automatique si l'utilisateur a activé le mécanisme.
 
 ## Redirection vers la création d'un ticket avec champs présélectionnés
-//TODO cette section n'est pas à jour
-syntaxe : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_p(a)-e(b)-t(c)-c(d), où :
+syntaxe : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p(a)e(b)t(c)c(d), où :
 * (a) = id du profil (profil par défaut si ignoré)
 * (b) = id de l'entité (entité par défaut si ignoré)
 * (c) = 1 pour incident, 2 pour demande (valeur par défaut du gabarit si ignoré)
 * (d) = id de la catégorie (valeur par défaut du gabarit si ignoré)
-Sachant que tous ces champs sont facultatifs, sous réserve de retirer la lettre le le tiret associés.
+Sachant que tous ces champs sont facultatifs, sous réserve de retirer la lettre associée. Par contre, régler une catégorie impose de régler le type.
+Vous vous demandez à quoi sert le 1? il est indispensable, car sinon le mécanisme de redirection de GLPI refuse de passer la main à mon plugin.
 
 Par exemple : 
-* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_p8-e5-t2-c9 pour un ticket de demande avec le profil n° 8, dans l'entité 5, catégorie 9
-* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_e5-t2-c9 pour un ticket au même endroit, mais avec le profil par défaut
-* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_e5-c9 pour un ticket toujours dans la même catégorie, mais sans définir le type (en l'absence de gabarit qui le force, ça sera un incident)
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p8e5t2c9 pour un ticket de demande avec le profil n° 8, dans l'entité 5, catégorie 9
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1e5t2c9 pour un ticket au même endroit, mais avec le profil par défaut
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1t1c9 pour un ticket toujours dans la même catégorie, mais sans définir le type (en l'absence de gabarit qui le force, ça sera un incident)
 * etc...
 
 # Installation et configuration
@@ -114,4 +114,66 @@ Avec Document_Item$1 sélectionné :
 * comupter : http://glpi0848.localhost/front/computer.form.php?id=1&forcetab=Document_Item$1
 
 ## Redirection vers la création de tickets
-//TODO pas encore vraiment testé
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p8e5t2c9 pour un ticket de demande avec le profil n° 8, dans l'entité 5, catégorie 9 (profil helpdesk chez moi)
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p4e5t1c9 pour un ticket au même endroit, mais de type incident et avec le profil 4 (profil tech)
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p2e5t1c9 pour un profil n'ayant pas les droits de créer un ticket (on tombe sur un message indiquant qu'on n'a pas les droits
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p8tc3 pour un lien mal foutu
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p148t1c3 pour un profil qui n'existe pas
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p8e1t2c3 pour une catégorie incompatible avec l'entité (hd)
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p4e1t2c3 pour une catégorie incompatible avec l'entité (admin)
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p8e2t2c4 pour une catégorie non visible en helpdesk
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p8e2t1c3 pour une catégorie incompatible avec le type (hd)
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p4e2t1c3 pour une catégorie incompatible avec le type (admin)
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p17e2t2c3 pour un profil n'ayant pas les droits sur l'entité (hd)
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p16e2t2c3 pour un profil n'ayant pas les droits sur l'entité (admin)
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p8e5t0c9 avec un type bidon
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
