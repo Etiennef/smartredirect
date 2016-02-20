@@ -3,10 +3,6 @@
 class PluginSmartredirectRule extends PluginConfigmanagerRule {
 	protected static $inherit_order = array(self::TYPE_USER, self::TYPE_GLOBAL);
 	
-	static function getPluginName() {
-		return __("SmartRedirect rules", 'smartredirect');
-	}
-	
 	static function makeConfigParams() {
 		$myProfiles = Dropdown::getDropdownArrayNames(Profile::getTable(), array_keys($_SESSION['glpiprofiles']));
 		
@@ -19,7 +15,7 @@ class PluginSmartredirectRule extends PluginConfigmanagerRule {
 				'text' => __('Link type', 'smartredirect'),
 				'tooltip' => __('Rule is applied only for selected links', 'smartredirect'),
 				'values' => PluginSmartredirectTicket::getLinkTypeDescriptions(),
-				'dbtype' => 'varchar(250)',
+				'dbtype' => 'varchar(500)',
 				'default' => '[]',
 				'options' => array(
 					'multiple'=>true,
@@ -28,10 +24,10 @@ class PluginSmartredirectRule extends PluginConfigmanagerRule {
 			),
 			'entities' => array(
 				'type' => 'dropdown',
-				'text' => __('Entités'),
+				'text' => __('Entities'),
 				'tooltip' => __('Rule is applied only when ticket in in these entities (not recurrsive)', 'smartredirect'),
 				'values' => $myEntities,
-				'dbtype' => 'varchar(250)',
+				'dbtype' => 'varchar(1000)',
 				'default' => '[]',
 				'options' => array(
 					'multiple'=>true,

@@ -5,10 +5,6 @@
  * @author Etiennef
  */
 class PluginSmartredirectConfig extends PluginConfigmanagerConfig {
-	static function getPluginName() {
-		return __("SmartRedirect", 'smartredirect');
-	}
-	
 	static function makeConfigParams() {
 		return array(
 			'is_activated' => array(

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2015-05-15 11:19+0100\n"
-"PO-Revision-Date: 2015-05-15 11:19+0100\n"
+"POT-Creation-Date: 2016-02-20 12:34+0100\n"
+"PO-Revision-Date: 2016-02-20 12:35+0100\n"
 "Last-Translator: Etienne <etienne-github@outlook.fr>\n"
 "Language-Team: Etiennef <etienne-github@outlook.fr>\n"
 "Language: en_GB\n"
@@ -16,83 +16,99 @@ msgstr ""
 "X-Poedit-KeywordsList: __:1,2t\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: front/config.form.php:23
-msgid "Please activate the plugin"
-msgstr "Please activate the plugin"
-
-#: front/preference.form.php:25
+#: front/createredir.form.php:11
 msgid ""
-"No personnalized settings detected, could not update them, please try again"
+"Unable to select the right profile. Either this link is poorly deseigned, "
+"either it was not meant for you!"
 msgstr ""
-"No personnalized settings detected, could not update them, please try again"
+"Unable to select the right profile. Either this link is poorly deseigned, "
+"either it was not meant for you!"
 
-#: inc/config.class.php:41
-msgid "Default configuration for SmartRedirect"
-msgstr "Default configuration for SmartRedirect"
-
-#: inc/config.class.php:47 inc/config.class.php:103
-#: inc/preference.class.php:106 inc/preference.class.php:162
-msgid "Activate smart redirections"
-msgstr "Activate smart redirections"
-
-#: inc/config.class.php:51 inc/config.class.php:108
-#: inc/preference.class.php:110 inc/preference.class.php:167
-msgid "Requester"
-msgstr "Requester"
-
-#: inc/config.class.php:58 inc/config.class.php:113
-#: inc/preference.class.php:117 inc/preference.class.php:172
-msgid "Observer"
-msgstr "Observer"
-
-#: inc/config.class.php:65 inc/config.class.php:118
-#: inc/preference.class.php:124 inc/preference.class.php:177
-msgid "Assigned to"
-msgstr "Assigned to"
-
-#: inc/config.class.php:72 inc/config.class.php:123
-#: inc/preference.class.php:131 inc/preference.class.php:182
-msgid "Requester <strong>and</strong> Assigned to (unresolved ticket)"
-msgstr "Requester <strong>and</strong> Assigned to (unresolved ticket)"
-
-#: inc/config.class.php:80 inc/config.class.php:128
-#: inc/preference.class.php:139 inc/preference.class.php:187
-msgid "Requester <strong>and</strong> Assigned to (resolved ticket)"
-msgstr "Requester <strong>and</strong> Assigned to (resolved ticket)"
-
-#: inc/config.class.php:88 inc/config.class.php:133
-#: inc/preference.class.php:147 inc/preference.class.php:192
-msgid "No role on this ticket"
-msgstr "No role on this ticket"
-
-#: inc/preference.class.php:68
-msgid "Personnal configuration for SmartRedirect"
-msgstr "Personnal configuration for SmartRedirect"
-
-#: inc/preference.class.php:73
-msgid "Personalized preferences are used for SmartRedirect."
-msgstr "Personalized preferences are used for SmartRedirect."
-
-#: inc/preference.class.php:79
-msgid "Do you want to delete personalized parameters?"
-msgstr "Do you want to delete personalized parameters?"
-
-#: inc/preference.class.php:81
-msgid "Delete personnal parameters"
-msgstr "Delete personnal parameters"
-
-#: inc/preference.class.php:87
+#: front/createredir.form.php:20
 msgid ""
-"No personalized preferences for SmartRedirect. Rules defined by the "
-"administrator are applied"
+"Unable to select the right entity. Either this link is poorly deseigned, "
+"either it was not meant for you!"
 msgstr ""
-"No personalized preferences for SmartRedirect. Rules defined by the "
-"administrator are applied"
+"Unable to select the right entity. Either this link is poorly deseigned, "
+"either it was not meant for you!"
 
-#: inc/preference.class.php:93
-msgid "Do you want to create personalized parameters?"
-msgstr "Do you want to create personalized parameters?"
+#: front/createredir.form.php:34
+msgid "Category have not been selected, please correct it..."
+msgstr "Category have not been selected, please correct it..."
 
-#: inc/preference.class.php:95
-msgid "Create personnal parameters"
-msgstr "Create personnal parameters"
+#: front/createredir.form.php:40
+msgid "Error parsing redirect information"
+msgstr "Error parsing redirect information"
+
+#: front/createredir.form.php:40
+msgid "Please inform the one who gave you this link that it is badly formed"
+msgstr "Please inform the one who gave you this link that it is badly formed"
+
+#: inc/config.class.php:12
+msgid "Activate smart redirections for tickets"
+msgstr "Activate smart redirections for tickets"
+
+#: inc/rule.class.php:15
+msgid "Link type"
+msgstr "Link type"
+
+#: inc/rule.class.php:16
+msgid "Rule is applied only for selected links"
+msgstr "Rule is applied only for selected links"
+
+#: inc/rule.class.php:28
+msgid "Rule is applied only when ticket in in these entities (not recurrsive)"
+msgstr ""
+"Rule is applied only when ticket in in these entities (not recurrsive)"
+
+#: inc/rule.class.php:39
+msgid "Role on ticket"
+msgstr "Role on ticket"
+
+#: inc/rule.class.php:40
+msgid "Rule is applied only when you play one of these roles on the ticket"
+msgstr "Rule is applied only when you play one of these roles on the ticket"
+
+#: inc/rule.class.php:52
+msgid "Rule is applied only for tickets having one of these status"
+msgstr "Rule is applied only for tickets having one of these status"
+
+#: inc/rule.class.php:68
+msgid "Profile to select when all the conditions are met"
+msgstr "Profile to select when all the conditions are met"
+
+#: inc/ticket.class.php:9
+msgid "Display solution"
+msgstr "Display solution"
+
+#: inc/ticket.class.php:10
+msgid "Display satisfaction survey"
+msgstr "Display satisfaction survey"
+
+#: inc/ticket.class.php:11
+msgid "Display ticket stats"
+msgstr "Display ticket stats"
+
+#: inc/ticket.class.php:12
+msgid "Display linked documents"
+msgstr "Display linked documents"
+
+#: inc/ticket.class.php:13
+msgid "Display validation requests"
+msgstr "Display validation requests"
+
+#: inc/ticket.class.php:14
+msgid "Others"
+msgstr "Others"
+
+#: inc/ticket.class.php:24
+msgid "No role"
+msgstr "No role"
+
+#: setup.php:24
+msgid "Plugin has been tested only for GLPI 0.84.8"
+msgstr "Plugin has been tested only for GLPI 0.84.8"
+
+#: setup.php:30
+msgid "Plugin requires ConfigManager 1.0"
+msgstr "Plugin requires ConfigManager 1.0"

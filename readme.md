@@ -127,6 +127,8 @@ Avec Document_Item$1 sélectionné :
 * http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p17e2t2c3 pour un profil n'ayant pas les droits sur l'entité (hd)
 * http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p16e2t2c3 pour un profil n'ayant pas les droits sur l'entité (admin)
 * http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p8e5t0c9 avec un type bidon
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p8e2t2c3 pour une catégorie avec gabarit (helpdesk
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p4e2t2c3 pour une catégorie avec gabarit (admin)
 
 
 
