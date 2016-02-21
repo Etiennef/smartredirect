@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: 2016-02-20 12:34+0100\n"
-"PO-Revision-Date: 2016-02-20 12:35+0100\n"
+"Project-Id-Version: SmartRedirect\n"
+"POT-Creation-Date: 2016-02-21 19:01+0100\n"
+"PO-Revision-Date: 2016-02-21 19:04+0100\n"
 "Last-Translator: Etienne <etienne-github@outlook.fr>\n"
 "Language-Team: Etiennef <etienne-github@outlook.fr>\n"
 "Language: en_GB\n"
@@ -58,8 +58,7 @@ msgstr "Rule is applied only for selected links"
 
 #: inc/rule.class.php:28
 msgid "Rule is applied only when ticket in in these entities (not recurrsive)"
-msgstr ""
-"Rule is applied only when ticket in in these entities (not recurrsive)"
+msgstr "Rule is applied only when ticket in in these entities (not recurrsive)"
 
 #: inc/rule.class.php:39
 msgid "Role on ticket"

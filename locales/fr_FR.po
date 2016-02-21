@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"POT-Creation-Date: 2016-02-20 12:35+0100\n"
-"PO-Revision-Date: 2016-02-20 16:30+0100\n"
+"Project-Id-Version: SmartRedirect\n"
+"POT-Creation-Date: 2016-02-21 19:01+0100\n"
+"PO-Revision-Date: 2016-02-21 19:04+0100\n"
 "Last-Translator: Etienne <etienne-github@outlook.fr>\n"
 "Language-Team: Etienne <etienne-glpi@outlook.fr>\n"
 "Language: fr_FR\n"
@@ -72,8 +72,8 @@ msgstr "Rôle sur le ticket"
 #: inc/rule.class.php:40
 msgid "Rule is applied only when you play one of these roles on the ticket"
 msgstr ""
-"La règle n'est appliqué que lorsque vous jouez un des rôles sélectionnés "
-"sur le ticket"
+"La règle n'est appliqué que lorsque vous jouez un des rôles sélectionnés sur "
+"le ticket"
 
 #: inc/rule.class.php:52
 msgid "Rule is applied only for tickets having one of these status"
