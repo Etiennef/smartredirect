@@ -12,9 +12,10 @@ class PluginSmartredirectGobject {
 	
 	static function forcetabDecode($encoded, &$output) {
 		$matches = array();
-		if(preg_match('/(.*)\\$\\$\\$(.*)/', $encoded, $matches)) {
+		if(preg_match('/(\w*)(?:\\$\\$\\$(.*))?/', $encoded, $matches)) {
 			$output['type'] = $matches[1];
-			$output['forcetab'] = preg_replace('/\\$\\$/', '_', $matches[2]);
+			if(isset($matches[2]))
+				$output['forcetab'] = preg_replace('/\\$\\$/', '_', $matches[2]);
 			return true;
 		} else {
 			return false;

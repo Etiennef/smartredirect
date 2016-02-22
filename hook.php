@@ -7,7 +7,8 @@
 function plugin_smartredirect_install() {
 	include 'inc/config.class.php';
 	PluginSmartredirectConfig::install();
-
+	
+	include 'inc/ticket.class.php';
 	include 'inc/rule.class.php';
 	PluginSmartredirectRule::install();
 	
