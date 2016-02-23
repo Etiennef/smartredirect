@@ -10,53 +10,49 @@ class PluginSmartredirectRule extends PluginConfigmanagerRule {
 		asort($myEntities);
 		
 		return array(
+			'_header' => array(
+				'type' => 'readonly text',
+				'text' => self::makeHeaderLine(__('Redirection rules', 'smartredirect'))
+			),
 			'linktypes' => array(
 				'type' => 'dropdown',
+				'maxlength' => 500,
 				'text' => __('Link type', 'smartredirect'),
 				'tooltip' => __('Rule is applied only for selected links', 'smartredirect'),
 				'values' => PluginSmartredirectTicket::getLinkTypeDescriptions(),
-				'dbtype' => 'varchar(500)',
 				'default' => '[]',
-				'options' => array(
-					'multiple'=>true,
-					'size'=>5
-				)
+				'multiple'=>true,
+				'size'=>5
 			),
 			'entities' => array(
 				'type' => 'dropdown',
+				'maxlength' => 60000,
 				'text' => __('Entities'),
 				'tooltip' => __('Rule is applied only when ticket in in these entities (not recurrsive)', 'smartredirect'),
 				'values' => $myEntities,
-				'dbtype' => 'varchar(1000)',
 				'default' => '[]',
-				'options' => array(
-					'multiple'=>true,
-					'size'=>5
-				)
+				'multiple'=>true,
+				'size'=>5
 			),
 			'roles' => array(
 				'type' => 'dropdown',
+				'maxlength' => 250,
 				'text' => __('Role on ticket', 'smartredirect'),
 				'tooltip' => __('Rule is applied only when you play one of these roles on the ticket', 'smartredirect'),
 				'values' => PluginSmartredirectTicket::getRoleDescriptions(),
-				'dbtype' => 'varchar(250)',
 				'default' => '[]',
-				'options' => array(
-					'multiple'=>true,
-					'size'=>5
-				)
+				'multiple'=>true,
+				'size'=>5
 			),
 			'status' => array(
 				'type' => 'dropdown',
+				'maxlength' => 250,
 				'text' => __('Status'),
 				'tooltip' => __('Rule is applied only for tickets having one of these status', 'smartredirect'),
 				'values' => Ticket::getAllStatusArray(),
-				'dbtype' => 'varchar(250)',
 				'default' => '[]',
-				'options' => array(
-					'multiple'=>true,
-					'size'=>5
-				)
+				'multiple'=>true,
+				'size'=>5
 			),
 			'readonly1' => array(
 				'type' => 'readonly text',
@@ -64,10 +60,10 @@ class PluginSmartredirectRule extends PluginConfigmanagerRule {
 			),
 			'profile' => array(
 				'type' => 'dropdown',
+				'maxlength' => 25,
 				'text' => __('Profile'),
 				'tooltip' => __('Profile to select when all the conditions are met', 'smartredirect'),
 				'values' => $myProfiles,
-				'dbtype' => 'varchar(25)',
 				'default' => '[]'
 			),
 		);

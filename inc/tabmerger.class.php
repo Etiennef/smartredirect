@@ -5,8 +5,8 @@ class PluginSmartredirectTabmerger extends PluginConfigmanagerTabmerger {
 		return array(
 			// '__.*' => 'html code',
 			// CommonGLPI => tabnum|'all',
-			'PluginSmartredirectConfig' => 0,
-			'PluginSmartredirectRule' => 0
+			'PluginSmartredirectConfig' => 'all',
+			'PluginSmartredirectRule' => 'all'
 		);
 	}
 }
