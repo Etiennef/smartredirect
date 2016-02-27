@@ -15,12 +15,12 @@ class PluginSmartredirectTicket extends PluginSmartredirectGobject {
 	static function getLinkTypeDescriptions() {
 		return array(
 			// forcetab => texte à afficher dans la config
-			'Ticket$2' => __('Display solution','tickettransfer'),
-			'Ticket$3' => __('Display satisfaction survey','tickettransfer'),
-			'Ticket$4' => __('Display ticket stats','tickettransfer'),
-			'Document_Item$1' => __('Display linked documents','tickettransfer'),
-			'TicketValidation$1' => __('Display validation requests','tickettransfer'),
-			'' => __('Others', 'tickettransfer')
+			'Ticket$2' => __('Display solution', 'smartredirect'),
+			'Ticket$3' => __('Display satisfaction survey', 'smartredirect'),
+			'Ticket$4' => __('Display ticket stats', 'smartredirect'),
+			'Document_Item$1' => __('Display linked documents', 'smartredirect'),
+			'TicketValidation$1' => __('Display validation requests', 'smartredirect'),
+			'' => __('Others', 'smartredirect')
 			);
 	}
 	
@@ -34,7 +34,7 @@ class PluginSmartredirectTicket extends PluginSmartredirectGobject {
 			'observer' => __('Watcher'),
 			'assign' => __('Assigned to'),
 			'approver' => __('Approver'),
-			'none' => __('No role','tickettransfer')
+			'none' => __('No role','smartredirect')
 			);
 	}
 	
