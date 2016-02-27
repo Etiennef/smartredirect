@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SmartRedirect\n"
-"POT-Creation-Date: 2016-02-21 19:01+0100\n"
-"PO-Revision-Date: 2016-02-21 19:04+0100\n"
+"POT-Creation-Date: 2016-02-27 12:36+0100\n"
+"PO-Revision-Date: 2016-02-27 12:36+0100\n"
 "Last-Translator: Etienne <etienne-github@outlook.fr>\n"
 "Language-Team: Etiennef <etienne-github@outlook.fr>\n"
 "Language: en_GB\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __:1,2t\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: front/createredir.form.php:11
+#: front/createredir.form.php:12
 msgid ""
 "Unable to select the right profile. Either this link is poorly deseigned, "
 "either it was not meant for you!"
@@ -24,7 +24,7 @@ msgstr ""
 "Unable to select the right profile. Either this link is poorly deseigned, "
 "either it was not meant for you!"
 
-#: front/createredir.form.php:20
+#: front/createredir.form.php:22
 msgid ""
 "Unable to select the right entity. Either this link is poorly deseigned, "
 "either it was not meant for you!"
@@ -32,82 +32,130 @@ msgstr ""
 "Unable to select the right entity. Either this link is poorly deseigned, "
 "either it was not meant for you!"
 
-#: front/createredir.form.php:34
+#: front/createredir.form.php:35
 msgid "Category have not been selected, please correct it..."
 msgstr "Category have not been selected, please correct it..."
 
-#: front/createredir.form.php:40
+#: front/createredir.form.php:43
 msgid "Error parsing redirect information"
 msgstr "Error parsing redirect information"
 
-#: front/createredir.form.php:40
+#: front/createredir.form.php:43
 msgid "Please inform the one who gave you this link that it is badly formed"
 msgstr "Please inform the one who gave you this link that it is badly formed"
 
-#: inc/config.class.php:12
+#: inc/pluginconfig.class.php:8
+msgid ""
+"You can either use a full URL or just add GET parmameters to the build-in "
+"value. To add GET parameters, use this syntax : &parama=value&paramb=toto. "
+"Intitial & will be converted into ? if necessary. Any value not sarting with "
+"& will be considered as full URL."
+msgstr ""
+"You can either use a full URL or just add GET parmameters to the build-in "
+"value. To add GET parameters, use this syntax : &parama=value&paramb=toto. "
+"Intitial & will be converted into ? if necessary. Any value not sarting with "
+"& will be considered as full URL."
+
+#: inc/pluginconfig.class.php:14
+msgid "Configuration for ticket redirections"
+msgstr "Configuration for ticket redirections"
+
+#: inc/pluginconfig.class.php:20
 msgid "Activate smart redirections for tickets"
 msgstr "Activate smart redirections for tickets"
 
-#: inc/rule.class.php:15
-msgid "Link type"
-msgstr "Link type"
+#: inc/pluginconfig.class.php:32
+msgid "Configuration for ticket creation rediretion"
+msgstr "Configuration for ticket creation rediretion"
 
-#: inc/rule.class.php:16
-msgid "Rule is applied only for selected links"
-msgstr "Rule is applied only for selected links"
+#: inc/pluginconfig.class.php:38
+msgid "URL used to redirect in case of success"
+msgstr "URL used to redirect in case of success"
 
-#: inc/rule.class.php:28
-msgid "Rule is applied only when ticket in in these entities (not recurrsive)"
-msgstr "Rule is applied only when ticket in in these entities (not recurrsive)"
+#: inc/pluginconfig.class.php:46
+msgid "URL used to redirect when profile is not available"
+msgstr "URL used to redirect when profile is not available"
 
-#: inc/rule.class.php:39
-msgid "Role on ticket"
-msgstr "Role on ticket"
+#: inc/pluginconfig.class.php:54
+msgid "URL used to redirect when entity is not reachable"
+msgstr "URL used to redirect when entity is not reachable"
 
-#: inc/rule.class.php:40
-msgid "Rule is applied only when you play one of these roles on the ticket"
-msgstr "Rule is applied only when you play one of these roles on the ticket"
+#: inc/pluginconfig.class.php:62
+msgid ""
+"URL used to redirect when category is not valid (wrong type, wrong entity, "
+"does not exist at all...)"
+msgstr ""
+"URL used to redirect when category is not valid (wrong type, wrong entity, "
+"does not exist at all...)"
 
-#: inc/rule.class.php:52
-msgid "Rule is applied only for tickets having one of these status"
-msgstr "Rule is applied only for tickets having one of these status"
+#: inc/pluginconfig.class.php:70
+msgid "URL used to redirect when redirect link is badly formed"
+msgstr "URL used to redirect when redirect link is badly formed"
 
-#: inc/rule.class.php:68
-msgid "Profile to select when all the conditions are met"
-msgstr "Profile to select when all the conditions are met"
-
-#: inc/ticket.class.php:9
+#: inc/ticket.class.php:18
 msgid "Display solution"
 msgstr "Display solution"
 
-#: inc/ticket.class.php:10
+#: inc/ticket.class.php:19
 msgid "Display satisfaction survey"
 msgstr "Display satisfaction survey"
 
-#: inc/ticket.class.php:11
+#: inc/ticket.class.php:20
 msgid "Display ticket stats"
 msgstr "Display ticket stats"
 
-#: inc/ticket.class.php:12
+#: inc/ticket.class.php:21
 msgid "Display linked documents"
 msgstr "Display linked documents"
 
-#: inc/ticket.class.php:13
+#: inc/ticket.class.php:22
 msgid "Display validation requests"
 msgstr "Display validation requests"
 
-#: inc/ticket.class.php:14
+#: inc/ticket.class.php:23
 msgid "Others"
 msgstr "Others"
 
-#: inc/ticket.class.php:24
+#: inc/ticket.class.php:37
 msgid "No role"
 msgstr "No role"
 
-#: setup.php:24
+#: inc/ticketrule.class.php:16
+msgid "Redirection rules"
+msgstr "Redirection rules"
+
+#: inc/ticketrule.class.php:21
+msgid "Link type"
+msgstr "Link type"
+
+#: inc/ticketrule.class.php:22
+msgid "Rule is applied only for selected links"
+msgstr "Rule is applied only for selected links"
+
+#: inc/ticketrule.class.php:32
+msgid "Rule is applied only when ticket in in these entities (not recurrsive)"
+msgstr "Rule is applied only when ticket in in these entities (not recurrsive)"
+
+#: inc/ticketrule.class.php:41
+msgid "Role on ticket"
+msgstr "Role on ticket"
+
+#: inc/ticketrule.class.php:42
+msgid "Rule is applied only when you play one of these roles on the ticket"
+msgstr "Rule is applied only when you play one of these roles on the ticket"
+
+#: inc/ticketrule.class.php:52
+msgid "Rule is applied only for tickets having one of these status"
+msgstr "Rule is applied only for tickets having one of these status"
+
+#: inc/ticketrule.class.php:66
+msgid "Profile to select when all the conditions are met"
+msgstr "Profile to select when all the conditions are met"
+
+#: setup.php:22
 msgid "Plugin has been tested only for GLPI 0.84.8"
 msgstr "Plugin has been tested only for GLPI 0.84.8"
 
-#: setup.php:30
-msgid "Plugin requires ConfigManager 1.0"
-msgstr "Plugin requires ConfigManager 1.0"
+#: setup.php:28 setup.php:33
+msgid "Plugin requires ConfigManager 1.x.x"
+msgstr "Plugin requires ConfigManager 1.x.x"

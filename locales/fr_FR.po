@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: SmartRedirect\n"
-"POT-Creation-Date: 2016-02-21 19:01+0100\n"
-"PO-Revision-Date: 2016-02-21 19:04+0100\n"
+"POT-Creation-Date: 2016-02-27 12:35+0100\n"
+"PO-Revision-Date: 2016-02-27 12:36+0100\n"
 "Last-Translator: Etienne <etienne-github@outlook.fr>\n"
 "Language-Team: Etienne <etienne-glpi@outlook.fr>\n"
 "Language: fr_FR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __:1,2t\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: front/createredir.form.php:11
+#: front/createredir.form.php:12
 msgid ""
 "Unable to select the right profile. Either this link is poorly deseigned, "
 "either it was not meant for you!"
@@ -24,7 +24,7 @@ msgstr ""
 "Impossible de sélectionner le bon profil. Soit ce lien ne vous est pas "
 "déstiné, soit il est mal conçu!"
 
-#: front/createredir.form.php:20
+#: front/createredir.form.php:22
 msgid ""
 "Unable to select the right entity. Either this link is poorly deseigned, "
 "either it was not meant for you!"
@@ -32,91 +32,140 @@ msgstr ""
 "Impossible de sélectionner la bonne entité. Soit ce lien ne vous est pas "
 "déstiné, soit il est mal conçu!"
 
-#: front/createredir.form.php:34
+#: front/createredir.form.php:35
 msgid "Category have not been selected, please correct it..."
 msgstr ""
 "La catégorie n'a pas pu être sélectionnée, merci de la choisir vous-même"
 
-#: front/createredir.form.php:40
+#: front/createredir.form.php:43
 msgid "Error parsing redirect information"
 msgstr "Une erreur s'est produite lors de la redirection"
 
-#: front/createredir.form.php:40
+#: front/createredir.form.php:43
 msgid "Please inform the one who gave you this link that it is badly formed"
 msgstr "Merci d'informer celui qui vous a fourni ce lien qu'il est mal formé"
 
-#: inc/config.class.php:12
+#: inc/pluginconfig.class.php:8
+msgid ""
+"You can either use a full URL or just add GET parmameters to the build-in "
+"value. To add GET parameters, use this syntax : &parama=value&paramb=toto. "
+"Intitial & will be converted into ? if necessary. Any value not sarting with "
+"& will be considered as full URL."
+msgstr ""
+"Vous pouvez soit utiliser une URL complète, soit juste ajouter des "
+"paramètres de type GET. Pour ajouter des paramètres de type GET, utilisez "
+"cette syntaxe : &parama=value&paramb=toto. Le & initial sera automatiquement "
+"changé en ? si nécessaire. Tout valeur commençant par autre chose que & sera "
+"considérée commne une URL complète."
+
+#: inc/pluginconfig.class.php:14
+msgid "Configuration for ticket redirections"
+msgstr "Configuration pour la redirection vers les tickets"
+
+#: inc/pluginconfig.class.php:20
 msgid "Activate smart redirections for tickets"
 msgstr "Activer la redirection intelligente pour les tickets"
 
-#: inc/rule.class.php:15
+#: inc/pluginconfig.class.php:32
+msgid "Configuration for ticket creation rediretion"
+msgstr "Configuration pour la redirection vers la création de tickets"
+
+#: inc/pluginconfig.class.php:38
+msgid "URL used to redirect in case of success"
+msgstr "URL utilisée en cas de succès"
+
+#: inc/pluginconfig.class.php:46
+msgid "URL used to redirect when profile is not available"
+msgstr "URL utilisée lorsque le profil demandé n'est pas accessible"
+
+#: inc/pluginconfig.class.php:54
+msgid "URL used to redirect when entity is not reachable"
+msgstr "URL utilisée lorsque l'entité n'est pas accessible"
+
+#: inc/pluginconfig.class.php:62
+msgid ""
+"URL used to redirect when category is not valid (wrong type, wrong entity, "
+"does not exist at all...)"
+msgstr ""
+"URL utilisée lorsque la catégorie n'est pas valide (mauvais type, mauvaise "
+"entité, n'existe pas du tout...)"
+
+#: inc/pluginconfig.class.php:70
+msgid "URL used to redirect when redirect link is badly formed"
+msgstr "URL utilisée lorsque le lien est mal formé"
+
+#: inc/ticket.class.php:18
+msgid "Display solution"
+msgstr "Lien vers l'onglet solution"
+
+#: inc/ticket.class.php:19
+msgid "Display satisfaction survey"
+msgstr "Lien vers l'onglet du questionnaire de satisfaction"
+
+#: inc/ticket.class.php:20
+msgid "Display ticket stats"
+msgstr "Lien vers l'onglet statistiques"
+
+#: inc/ticket.class.php:21
+msgid "Display linked documents"
+msgstr "Lien ves l'onglet documents"
+
+#: inc/ticket.class.php:22
+msgid "Display validation requests"
+msgstr "Lien vers l'onglet validations"
+
+#: inc/ticket.class.php:23
+msgid "Others"
+msgstr "Autres"
+
+#: inc/ticket.class.php:37
+msgid "No role"
+msgstr "Aucun rôle"
+
+#: inc/ticketrule.class.php:16
+msgid "Redirection rules"
+msgstr "Règles de redirection"
+
+#: inc/ticketrule.class.php:21
 msgid "Link type"
 msgstr "Type de lien"
 
-#: inc/rule.class.php:16
+#: inc/ticketrule.class.php:22
 msgid "Rule is applied only for selected links"
 msgstr ""
 "Cette règle est appliquée uniquement si le lien est d'un des types "
 "sélectionné"
 
-#: inc/rule.class.php:28
+#: inc/ticketrule.class.php:32
 msgid "Rule is applied only when ticket in in these entities (not recurrsive)"
 msgstr ""
 "La règle est appliquée seulement si le ticket est dans une des entités "
 "sélectionnées (non réccursif)"
 
-#: inc/rule.class.php:39
+#: inc/ticketrule.class.php:41
 msgid "Role on ticket"
 msgstr "Rôle sur le ticket"
 
-#: inc/rule.class.php:40
+#: inc/ticketrule.class.php:42
 msgid "Rule is applied only when you play one of these roles on the ticket"
 msgstr ""
 "La règle n'est appliqué que lorsque vous jouez un des rôles sélectionnés sur "
 "le ticket"
 
-#: inc/rule.class.php:52
+#: inc/ticketrule.class.php:52
 msgid "Rule is applied only for tickets having one of these status"
 msgstr ""
 "Les règles ne sont appliquées que pour les tickets ayant un des statuts "
 "sélectionnés"
 
-#: inc/rule.class.php:68
+#: inc/ticketrule.class.php:66
 msgid "Profile to select when all the conditions are met"
 msgstr "Prifil à choisir lorsque toutes les conditions sont remplies"
 
-#: inc/ticket.class.php:9
-msgid "Display solution"
-msgstr "Lien vers l'onglet solution"
-
-#: inc/ticket.class.php:10
-msgid "Display satisfaction survey"
-msgstr "Lien vers l'onglet du questionnaire de satisfaction"
-
-#: inc/ticket.class.php:11
-msgid "Display ticket stats"
-msgstr "Lien vers l'onglet statistiques"
-
-#: inc/ticket.class.php:12
-msgid "Display linked documents"
-msgstr "Lien ves l'onglet documents"
-
-#: inc/ticket.class.php:13
-msgid "Display validation requests"
-msgstr "Lien vers l'onglet validations"
-
-#: inc/ticket.class.php:14
-msgid "Others"
-msgstr "Autres"
-
-#: inc/ticket.class.php:24
-msgid "No role"
-msgstr "Aucun rôle"
-
-#: setup.php:24
+#: setup.php:22
 msgid "Plugin has been tested only for GLPI 0.84.8"
 msgstr "Ce plugin n'a été testé que pour GLPI 0.84.8"
 
-#: setup.php:30
-msgid "Plugin requires ConfigManager 1.0"
-msgstr "Ce plugin requiert ConfigManager 1.0"
+#: setup.php:28 setup.php:33
+msgid "Plugin requires ConfigManager 1.x.x"
+msgstr "Ce plugin requiert ConfigManager 1.x.x"

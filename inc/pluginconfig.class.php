@@ -51,7 +51,7 @@ class PluginSmartredirectPluginconfig extends PluginConfigmanagerConfig {
 				'type' => 'text input',
 				'types' => array(self::TYPE_GLOBAL),
 				'maxlength' => 250,
-				'text' => __('URL used to redirect when profile is not reachable', 'smartredirect'),
+				'text' => __('URL used to redirect when entity is not reachable', 'smartredirect'),
 				'tooltip' => $tooltip_syntax_url,
 				'default' => ''
 			),
