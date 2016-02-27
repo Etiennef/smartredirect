@@ -5,12 +5,11 @@
  * @return boolean
  */
 function plugin_smartredirect_install() {
-	include 'inc/config.class.php';
-	PluginSmartredirectConfig::install();
+	include 'inc/pluginconfig.class.php';
+	PluginSmartredirectPluginconfig::install();
 	
-	include 'inc/ticket.class.php';
-	include 'inc/rule.class.php';
-	PluginSmartredirectRule::install();
+	include 'inc/ticketrule.class.php';
+	PluginSmartredirectTicketrule::install();
 	
 	return true;
 }
@@ -21,19 +20,13 @@ function plugin_smartredirect_install() {
  * @return boolean
  */
 function plugin_smartredirect_uninstall() {
-	include 'inc/config.class.php';
-	PluginSmartredirectConfig::uninstall();
+	include 'inc/pluginconfig.class.php';
+	PluginSmartredirectPluginconfig::uninstall();
 
-	include 'inc/rule.class.php';
-	PluginSmartredirectRule::uninstall();
+	include 'inc/ticketrule.class.php';
+	PluginSmartredirectTicketrule::uninstall();
 	
 	return true;
 }
 
-/**
- * Hook vers la définition de nouvelle données dans les notifications
- * @param NotificationTargetTicket $target
- */
-function plugin_smartredirect_get_datas(NotificationTargetTicket $target) {
-	PluginSmartredirectNotificationData::getDatasForTemplate($target);
-}
+

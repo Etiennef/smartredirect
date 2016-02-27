@@ -31,7 +31,7 @@ Par exemple pour un ticket :
 * http://glpi0848.localhost/index.php?redirect=ticket_2016021801_Document_Item$1 est l'URL de redirection de GLPI natif (celle qu'on va trouver par exemple dans les mails de notifiation)
 * http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_gobject_2016021801_ticket$$$Document$$Item$1 est l'URL à utiliser pour le plugin SmartRedirect
 
-Le fait de passer par la redirection intelligent qui change le profil à la volée ne nécessite pas de changer le lien. ça sera automatique si l'utilisateur a activé le mécanisme.
+Le fait de passer par la redirection intelligente qui change le profil à la volée ne nécessite pas de changer le lien. ça sera automatique si l'utilisateur a activé le mécanisme.
 
 ## Redirection vers la création d'un ticket avec champs présélectionnés
 syntaxe : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p(a)e(b)t(c)c(d), où :
@@ -39,13 +39,13 @@ syntaxe : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_crea
 * (b) = id de l'entité (entité par défaut si ignoré)
 * (c) = 1 pour incident, 2 pour demande (valeur par défaut du gabarit si ignoré)
 * (d) = id de la catégorie (valeur par défaut du gabarit si ignoré)
-Sachant que tous ces champs sont facultatifs, sous réserve de retirer la lettre associée. Par contre, régler une catégorie impose de régler le type.
+Le choix du profil est facultatif, mais tous les autres champs sont obligatoires. Pour ne pas choisir le profil, vous devez ne mettre ni le numéro, ni le p : http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1e(b)t(c)c(d).
 Vous vous demandez à quoi sert le 1? il est indispensable, car sinon le mécanisme de redirection de GLPI refuse de passer la main à mon plugin.
 
 Par exemple : 
 * http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1p8e5t2c9 pour un ticket de demande avec le profil n° 8, dans l'entité 5, catégorie 9
 * http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1e5t2c9 pour un ticket au même endroit, mais avec le profil par défaut
-* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1t1c9 pour un ticket toujours dans la même catégorie, mais sans définir le type (en l'absence de gabarit qui le force, ça sera un incident)
+* http://glpi0848.localhost/index.php?redirect=plugin_smartredirect_create_1t1c9 va afficher un message d'erreur car l'entité n'est pas précisée
 * etc...
 
 # Installation et configuration
@@ -56,10 +56,19 @@ En 0.84.8, ça fait environ 5 lignes à changer.
 
 ## Configuration
 La configuration se base sur le plugin ConfigManager, donc gère les héritages de config et personnalisations. On a deux niveaux de configuration : globale, et personnalisation par utilisateurs.
-Niveau configurations, on a une option, et un jeu de règles :
-* option : activer ou non le changement de profil à la volée quand on accède à un ticket (par défaut non, réglable de façon globale, surchargeable par l'utilisateur)
+Niveau configurations, on a 6 élements de configuration, et un jeu de règles :
+* activer ou non le changement de profil à la volée quand on accède à un ticket (par défaut non, réglable de façon globale, surchargeable par l'utilisateur)
+* configuration des liens utilisés lors de la redirection vers la création de tickets : Il y en a 5, afin de premettre à l'administrateur de personnaliser ce qui se passe lors de la redirection en fonction du type d'erreur rencontré. Ca a été mis en place pour prendre rendre ce plugin compatible avec la fonctionnalité de uihacks qui force un choix explicite du type de ticket (qu'il faut ici court-circuiter). Mais ça pourrait être utile à d'autres... En cas de doute, laissez vide, il y a toutes les chance que ça marche très bien.
 * règles : règle de choix du profil en fonction des caractéristiques du ticket visé (par défaut aucune règle, réglable de façon globale, avec possibilitié d'ajouter des règles personnelles). Seule la première règle applicable s'applique (les suivantes seront ignorées), et si aucune règle n'est applicable lorsqu'on clique sur le lien, le profil sélectionné reste le profil par défaut.
 La configuration des règles nécessite une bonne connaissance de GLPI, et n'est donc pas très accessible à un utilisateur occasionnel. Telles qu'elles ont été conçues, il est prévu que la configuration générale faite par l'administrateur suffise à la majorité des utilisateurs, et que seuls quelques utilisateurs ayant des rôles particulièrs aient besoin de la surcharger.
+
+# Etendre le plugin
+Le plugin est conçu de façon à ce qu'il soit facile de définir de nouveaux mécanismes de redirection intelligente sur d'autres objets que les ticket.
+Pour celà, il faut:
+1- créer un nouvel objet nommé `PluginSmartredirectType`, où type est le type de l'objet GLPI (ticket, computer...). Cet objet doit hériter de `PluginSmartredirectGobject`
+2- enrichir si nécessaire la config, ou créer un nouveau jeu de règles (il est recommandé d'au moins mettre un paramètre activer/désactiver). N'utilisez pas le nom d'un objet GLPI pour l'objet des règles, ça pourrait limiter les extentions futures
+3- Implémenter la redirection intelligente dans la fonction `manageConfig` de `PluginSmartredirectType`
+4- Déclarer le nouvel objet dans `plugin_init_smartredirect`, et ajouter si nécessaire des hooks (par exemple, enrichir les notifications)
 
 # Liens de test
 Les exemples sont données avec mon environnement de test. A adapter en fonction de l'état de votre base bien sûr.

@@ -1,59 +1,67 @@
 <?php
 
 include("../../../inc/includes.php");
+$config = PluginSmartredirectPluginconfig::getConfigValues();
 
-
-if(isset($_GET['id']) && preg_match('/^1(p([\d]+))?(e([\d]+))?(t([12])(c([\d]+))?)?$/', $_GET['id'], $matches)) {
+if(isset($_GET['id']) && preg_match('@^1(p([\d]+))?e([\d]+)?t([12])c([\d]+)$@', $_GET['id'], $matches)) {
+	
+	// Changement du profil
 	if(isset($matches[2]) && $matches[2]!='' &&  $matches[2]!= $_SESSION['glpiactiveprofile']['id']) {
 		Session::changeProfile($matches[2]);
-		
 		if($_SESSION['glpiactiveprofile']['id'] != $matches[2]) {
 			Session::addMessageAfterRedirect(__('Unable to select the right profile. Either this link is poorly deseigned, either it was not meant for you!', 'smartredirect'), true, ERROR);
-			redirect();
+			redirect($config['url_profile_error']);
 		}
 	}
 	
-	if(isset($matches[4]) && $matches[4]!='' &&  $matches[4]!= $_SESSION['glpiactive_entity']) {
-		Session::changeActiveEntities($matches[4]);
+	// Changement de l'entité
+	if(isset($matches[3]) && $matches[3]!='' &&  $matches[3]!= $_SESSION['glpiactive_entity']) {
+		Session::changeActiveEntities($matches[3]);
 		
-		if($_SESSION['glpiactive_entity'] != $matches[4]) {
+		if($_SESSION['glpiactive_entity'] != $matches[3]) {
 			Session::addMessageAfterRedirect(__('Unable to select the right entity. Either this link is poorly deseigned, either it was not meant for you!', 'smartredirect'), true, ERROR);
-			redirect();
+			redirect($config['url_entity_error']);
 		}
 	}
 	
+	// Réglage du type et de la catégorie
 	$input = array();
-	if(isset($matches[6]) && $matches[6]!='') {
-		$input['type'] = $matches[6];
-	}
+	if(isset($matches[4]) && $matches[4]!='' && isset($matches[5]) && $matches[5]!='') {
+		$input['type'] = $matches[4];
 	
-	if(isset($matches[8]) && $matches[8]!='') {
-		if(checkCategory($matches[8], $input)) {
-		$input['itilcategories_id'] = $matches[8];
+		if(checkCategory($matches[5], $input)) {
+			$input['itilcategories_id'] = $matches[5];
 		} else {
 			Session::addMessageAfterRedirect(__('Category have not been selected, please correct it...', 'smartredirect'), true, ERROR);
+			redirect($config['url_category_error']);
 		}
 	}
 	
 	$_SESSION['saveInput']['Ticket'] = $input;
+	redirect($config['url_success']);
 } else {
 	Session::addMessageAfterRedirect(__('Error parsing redirect information', 'smartredirect').'. '.__('Please inform the one who gave you this link that it is badly formed', 'smartredirect'), true, ERROR);
+	redirect($config['url_syntax_error']);
 }
 
-redirect();
 
 
-
-
-
-function redirect() {
+function redirect($url) {
 	global $CFG_GLPI;
+	
 	if($_SESSION["glpiactiveprofile"]["interface"] == 'helpdesk') {
-		Html::redirect($CFG_GLPI["root_doc"]."/front/helpdesk.public.php?create_ticket=1");
+		$redir = "/front/helpdesk.public.php?create_ticket=1";
 	} else {
-		Html::redirect($CFG_GLPI["root_doc"]."/front/ticket.form.php");
+		$redir = "/front/ticket.form.php";
 	}
-	die();
+	
+	if(!empty($url) && $url[0]!='&') {
+		Html::redirect($url);
+	} else {
+		if(!empty($url) && !preg_match('@\?@', $redir))
+			$url[0] = '?'; // transformation du & en ? si nécessaire
+		Html::redirect($CFG_GLPI["root_doc"].$redir.$url);
+	}
 }
 
 function checkCategory($id, &$input) {
@@ -75,6 +83,7 @@ function checkCategory($id, &$input) {
 		if($input['type']==Ticket::DEMAND_TYPE && !$category->fields['is_request'])
 			return false;
 		
+		// vérification de la visibilité de l'entité en mode helpdesk si celui-ci est sélectionné
 		if($_SESSION["glpiactiveprofile"]["interface"] == 'helpdesk' && !$category->fields['is_helpdeskvisible'])
 			return false;
 		

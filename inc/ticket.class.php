@@ -2,7 +2,16 @@
 if (! defined ( 'GLPI_ROOT' )) {
 	die ( "Sorry. You can't access directly to this file" );
 }
-class PluginSmartredirectTicket {
+
+/**
+ * Gestion des redirections intelligentes en fonction du rôle de l'utilisateur sur le ticket
+ * @author Etiennef
+ */
+class PluginSmartredirectTicket extends PluginSmartredirectGobject {
+	/**
+	 * Décrit les types de liens envisageables
+	 * @return array(string=>string) tableau sous la forme forcetab => texte à afficher
+	 */
 	static function getLinkTypeDescriptions() {
 		return array(
 			// forcetab => texte à afficher dans la config
@@ -15,6 +24,10 @@ class PluginSmartredirectTicket {
 			);
 	}
 	
+	/**
+	 * Décrit les rôles gérés par le plugin, et la façon dont on les affiche
+	 * @return array(string=>string) tableau sous la forme rôle => texte à afficher
+	 */
 	static function getRoleDescriptions() {
 		return array(
 			'requester' => __('Requester'),
@@ -25,7 +38,12 @@ class PluginSmartredirectTicket {
 			);
 	}
 	
-	static function getRoles($ticket) {
+	/**
+	 * Calcule les rôles qu'a l'utilisateur courant sur ce ticket
+	 * @param Ticket $ticket
+	 * @return array(string) tableau des rôles actuels (il peut y en avoir plusieurs)
+	 */
+	static function getRoles(Ticket $ticket) {
 		$user_id = Session::getLoginUserID();
 		
 		$roles = array();
@@ -51,7 +69,7 @@ class PluginSmartredirectTicket {
 	}
 	
 	
-	static function manageRedirect($input) {
+	function manageRedirect($input) {
 		global $CFG_GLPI;
 		$ticket = new Ticket();
 		if(!isset($input['id']) || !$ticket->getFromDB($input['id'])) {
@@ -62,12 +80,12 @@ class PluginSmartredirectTicket {
 			}
 		}
 		
-		$config = PluginSmartredirectConfig::getConfigValues();
+		$config = PluginSmartredirectPluginconfig::getConfigValues();
 		
 		
 		// calcule et redirige, puis si nécessaire élargit le champ des entités
 		if($config['is_activated']) {
-			$rules = PluginSmartredirectRule::getRulesValues();
+			$rules = PluginSmartredirectTicketrule::getRulesValues();
 		
 			$user_id = Session::getLoginUserID();
 			$roles = self::getRoles($ticket);
@@ -108,6 +126,18 @@ class PluginSmartredirectTicket {
 	}
 	
 	
+	static function getDatas(NotificationTargetTicket $target) {
+		global $CFG_GLPI;
+		
+		if(get_class($target->obj) == 'Ticket' && ($id = $target->obj->getField('id'))) {
+			$baseStr = $CFG_GLPI["url_base"]."/index.php?redirect=plugin_smartredirect_gobject_${id}_ticket$$$";
+		
+			$target->datas['##ticket.smartredirect.url##'] = urldecode($baseStr);
+			$target->datas['##ticket.smartredirect.urlapprove##'] = urldecode($baseStr.'Ticket$2');
+			$target->datas['##ticket.smartredirect.urlvalidation##'] = urldecode($baseStr.'TicketValidation$1');
+			$target->datas['##ticket.smartredirect.urldocument##'] = urldecode($baseStr.'Document$$Item$1');
+		}
+	}
 }
 
 

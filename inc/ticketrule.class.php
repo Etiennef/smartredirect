@@ -1,6 +1,7 @@
 <?php
+include_once 'ticket.class.php';
 
-class PluginSmartredirectRule extends PluginConfigmanagerRule {
+class PluginSmartredirectTicketrule extends PluginConfigmanagerRule {
 	protected static $inherit_order = array(self::TYPE_USER, self::TYPE_GLOBAL);
 	
 	static function makeConfigParams() {
