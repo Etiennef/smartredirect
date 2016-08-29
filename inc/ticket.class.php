@@ -7,7 +7,7 @@ if (! defined ( 'GLPI_ROOT' )) {
  * Gestion des redirections intelligentes en fonction du rôle de l'utilisateur sur le ticket
  * @author Etiennef
  */
-class PluginSmartredirectTicket extends PluginSmartredirectGobject {
+class PluginSmartredirectTicket {
 	/**
 	 * Décrit les types de liens envisageables
 	 * @return array(string=>string) tableau sous la forme forcetab => texte à afficher
@@ -69,7 +69,7 @@ class PluginSmartredirectTicket extends PluginSmartredirectGobject {
 	}
 	
 	
-	function manageRedirect($input) {
+	static function manageRedirect($input) {
 		global $CFG_GLPI;
 		$ticket = new Ticket();
 		if(!isset($input['id']) || !$ticket->getFromDB($input['id'])) {
@@ -82,17 +82,18 @@ class PluginSmartredirectTicket extends PluginSmartredirectGobject {
 		
 		$config = PluginSmartredirectPluginconfig::getConfigValues();
 		
-		
 		// calcule et redirige, puis si nécessaire élargit le champ des entités
 		if($config['is_activated']) {
 			$rules = PluginSmartredirectTicketrule::getRulesValues();
 		
 			$user_id = Session::getLoginUserID();
 			$roles = self::getRoles($ticket);
-		
+         $linktype = (isset($input['forcetab']) && isset(self::getLinkTypeDescriptions()[$input['forcetab']]))
+               ? $input['forcetab'] : '';
+         
 			foreach($rules as $rule) {
 				//Vérifie le type de lien
-				$linktype = isset(self::getLinkTypeDescriptions()[$input['forcetab']]) ? $input['forcetab'] : '';
+				
 				if(!in_array($linktype, $rule['linktypes']))
 					continue;
 		
@@ -112,6 +113,11 @@ class PluginSmartredirectTicket extends PluginSmartredirectGobject {
 				$profile_id = $rule['profile'];
 				if($profile_id != $_SESSION['glpiactiveprofile']['id']) {
 					Session::changeProfile($profile_id);
+               
+               // dans l'hypothèse où l'utilisateur n'a pas le profil défini par la règle, on ignore la règle
+               if($profile_id != $_SESSION['glpiactiveprofile']['id']) {
+                  continue;
+               }
 				}
 				if (!Session::haveAccessToEntity($ticket->getEntityID())) {
 					Session::changeActiveEntities("all");
@@ -122,7 +128,9 @@ class PluginSmartredirectTicket extends PluginSmartredirectGobject {
 			}
 		}
 		
-		Html::redirect($CFG_GLPI["root_doc"]."/front/ticket.form.php?id=".$ticket->getId()."&forcetab=".$input['forcetab']);
+      $url_dest = $CFG_GLPI['root_doc'].'/front/ticket.form.php?id='.$ticket->getId();
+      if(isset($input['forcetab'])) $url_dest.= '&forcetab='.$input['forcetab'];
+		Html::redirect($url_dest);
 	}
 	
 	
@@ -130,12 +138,12 @@ class PluginSmartredirectTicket extends PluginSmartredirectGobject {
 		global $CFG_GLPI;
 		
 		if(get_class($target->obj) == 'Ticket' && ($id = $target->obj->getField('id'))) {
-			$baseStr = $CFG_GLPI["url_base"]."/index.php?redirect=plugin_smartredirect_gobject_${id}_ticket$$$";
-		
+			$baseStr = $CFG_GLPI["url_base"]."/plugins/smartredirect/front/ticket.form.php?id=$id";
+         
 			$target->datas['##ticket.smartredirect.url##'] = urldecode($baseStr);
-			$target->datas['##ticket.smartredirect.urlapprove##'] = urldecode($baseStr.'Ticket$2');
-			$target->datas['##ticket.smartredirect.urlvalidation##'] = urldecode($baseStr.'TicketValidation$1');
-			$target->datas['##ticket.smartredirect.urldocument##'] = urldecode($baseStr.'Document$$Item$1');
+			$target->datas['##ticket.smartredirect.urlapprove##'] = urldecode($baseStr.'&forcetab=Ticket$2');
+			$target->datas['##ticket.smartredirect.urlvalidation##'] = urldecode($baseStr.'&forcetab=TicketValidation$1');
+			$target->datas['##ticket.smartredirect.urldocument##'] = urldecode($baseStr.'&forcetab=Document_Item$1');
 		}
 	}
 }

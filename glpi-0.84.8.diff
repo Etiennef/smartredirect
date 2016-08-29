@@ -1,0 +1,121 @@
+Index: /inc/html.class.php
+===================================================================
+--- /inc/html.class.php	(revision 9)
++++ /inc/html.class.php	(revision 10)
+@@ -425,7 +425,29 @@
+       exit();
+    }
+ 
++   static function redirectToLogin() {
++      global $CFG_GLPI;
+ 
++      $dest     = $CFG_GLPI["root_doc"] . "/index.php";
++      $url_dest = str_replace($CFG_GLPI["root_doc"],'',$_SERVER['REQUEST_URI']);
++      $dest    .= "?redirect=".rawurlencode($url_dest);
++
++      $toadd = '';
++      if (!strpos($dest,"?")) {
++         $toadd = '&tokonq='.Toolbox::getRandomString(5);
++      }
++
++      echo "<script language=javascript>
++            NomNav = navigator.appName;
++            if (NomNav=='Konqueror') {
++               window.location='".$dest.$toadd."';
++            } else {
++               window.location='".$dest."';
++            }
++         </script>";
++      exit();
++   }
++
+    /**
+     * Display common message for item not found
+     *
+Index: /inc/session.class.php
+===================================================================
+--- /inc/session.class.php	(revision 9)
++++ /inc/session.class.php	(revision 10)
+@@ -668,7 +668,7 @@
+           || ($_SESSION["glpiactiveprofile"]["interface"] != "central")) {
+          // Gestion timeout session
+          if (!self::getLoginUserID()) {
+-            Html::redirect($CFG_GLPI["root_doc"] . "/index.php");
++            Html::redirectToLogin();
+             exit ();
+          }
+          Html::displayRightError();
+@@ -703,7 +703,7 @@
+           || ($_SESSION["glpiactiveprofile"]["interface"] != "helpdesk")) {
+          // Gestion timeout session
+          if (!self::getLoginUserID()) {
+-            Html::redirect($CFG_GLPI["root_doc"] . "/index.php");
++            Html::redirectToLogin();
+             exit ();
+          }
+          Html::displayRightError();
+@@ -722,7 +722,7 @@
+       if (!isset($_SESSION["glpiname"])) {
+          // Gestion timeout session
+          if (!Session::getLoginUserID()) {
+-            Html::redirect($CFG_GLPI["root_doc"] . "/index.php");
++            Html::redirectToLogin();
+             exit ();
+          }
+          Html::displayRightError();
+@@ -744,7 +744,7 @@
+       if (!self::haveRight($module, $right)) {
+          // Gestion timeout session
+          if (!self::getLoginUserID()) {
+-            Html::redirect($CFG_GLPI["root_doc"] . "/index.php");
++            Html::redirectToLogin();
+             exit ();
+          }
+          Html::displayRightError();
+@@ -781,7 +781,7 @@
+       if (!$valid) {
+          // Gestion timeout session
+          if (!self::getLoginUserID()) {
+-            Html::redirect($CFG_GLPI["root_doc"] . "/index.php");
++            Html::redirectToLogin();
+             exit ();
+          }
+          Html::displayRightError();
+Index: /inc/toolbox.class.php
+===================================================================
+--- /inc/toolbox.class.php	(revision 9)
++++ /inc/toolbox.class.php	(revision 10)
+@@ -1645,6 +1645,33 @@
+       global $CFG_GLPI, $PLUGIN_HOOKS;
+ 
+       if (!empty($where)) {
++         
++         // Cas backporté de GLPI 0.90.3
++         if(isset($_SESSION["glpiactiveprofile"]["interface"])
++             && !empty($_SESSION["glpiactiveprofile"]["interface"])) {
++            $decoded_where = rawurldecode($where);
++            // redirect to URL : URL must be rawurlencoded
++            if ($link = preg_match('/(https?:\/\/[^\/]+)\/.+/',$decoded_where, $matches)) {
++               
++               if($matches[1] !== $CFG_GLPI['url_base']) {
++                  Session::addMessageAfterRedirect('Redirection failed');
++                  if($_SESSION["glpiactiveprofile"]["interface"] === "helpdesk") {
++                     Html::redirect($CFG_GLPI["root_doc"]."/front/helpdesk.public.php");
++                  } else {
++                     Html::redirect($CFG_GLPI["root_doc"]."/front/central.php");
++                  }
++               } else {
++                  Html::redirect($decoded_where);
++               }
++            }
++            // Redirect based on GLPI_ROOT : URL must be rawurlencoded
++            if ($decoded_where[0] == '/') {
++               Html::redirect($CFG_GLPI["root_doc"].$decoded_where);
++            }
++         }
++         // Fin cas backporté de GLPI 0.90.3
++         
++         
+          $data = explode("_", $where);
+ 
+          if ((count($data) >= 2)
