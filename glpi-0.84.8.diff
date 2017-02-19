@@ -119,3 +119,33 @@ Index: /inc/toolbox.class.php
           $data = explode("_", $where);
  
           if ((count($data) >= 2)
+Index: inc/auth.class.php
+===================================================================
+--- inc/auth.class.php	(revision 12)
++++ inc/auth.class.php	(revision 13)
+@@ -918,7 +918,7 @@
+       }
+       $redir_string = "";
+       if (!empty($redirect_string)) {
+-         $redir_string = "?redirect=".$redirect_string;
++         $redir_string = "?redirect=".urlencode($redirect_string);
+       }
+       // Using x509 server
+       if (!empty($CFG_GLPI["x509_email_field"])
+Index: login.php
+===================================================================
+--- login.php	(revision 12)
++++ login.php	(revision 13)
+@@ -58,10 +58,10 @@
+ // Redirect management
+ $REDIRECT = "";
+ if (isset($_POST['redirect']) && (strlen($_POST['redirect']) > 0)) {
+-   $REDIRECT = "?redirect=" .$_POST['redirect'];
++   $REDIRECT = "?redirect=" .rawurlencode($_POST['redirect']);
+ 
+ } else if (isset($_GET['redirect']) && strlen($_GET['redirect'])>0) {
+-   $REDIRECT = "?redirect=" .$_GET['redirect'];
++   $REDIRECT = "?redirect=" .rawurlencode($_GET['redirect']);
+ }
+ 
+ $auth = new Auth();
