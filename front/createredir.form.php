@@ -90,4 +90,3 @@ function checkCategory($id, &$input) {
       return true;
    } else return false;
 }
-
