@@ -6,7 +6,7 @@
  */
 function plugin_version_smartredirect() {
    return array('name'      => "SmartRedirect",
-         'version'        => '1.0.0',
+         'version'        => '0.84+1.0.0',
          'author'         => 'Etiennef',
          'license'        => 'GPLv2+',
          'homepage'       => 'https://github.com/Etiennef/smartredirect',
